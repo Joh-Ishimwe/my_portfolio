@@ -43,6 +43,13 @@ function buildMarquee() {
   track.style.animationDuration = `${(setW * reps) / SPEED}s`;
 }
 buildMarquee();
+// Pause/Play button — works for mouse, keyboard and touch users
+const marqueeToggle = $("marqueeToggle");
+marqueeToggle.addEventListener("click", () => {
+  const paused = marquee.classList.toggle("paused");
+  marqueeToggle.setAttribute("aria-pressed", String(paused));
+  marqueeToggle.textContent = paused ? "▶ Play" : "❚❚ Pause";
+});
 let lastW = marquee.clientWidth, resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
