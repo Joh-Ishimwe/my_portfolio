@@ -35,6 +35,14 @@ const SKILLS = {
   "Analytics": ["Power BI"]
 };
 
+/* Where I've worked — keep it short: newest first, one line each */
+const EXPERIENCE = [
+  { role: "Data Engineering Trainee", org: "AmaliTech", place: "Kigali, Rwanda", dates: "2026 – Present",   // TODO: confirm
+    line: "Building production-style pipelines with Python, SQL, Airflow and Docker." },
+  { role: "TODO: previous role", org: "TODO: company", place: "", dates: "20XX – 20XX",                       // TODO
+    line: "One sentence on what you did and the result." }
+];
+
 /* Achievements carousel — newest first */
 const ACHIEVEMENTS = [
   { date: "2026", title: "AmaliTech Data Engineering Training", text: "Selected into AmaliTech's data engineering programme.", link: "" }, // TODO
