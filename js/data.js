@@ -131,7 +131,7 @@ const CHAT = {
 
 /*
   IMPACT section — what you do for others.
-  Every TODO is a draft written for you: change the words so they're 100% true.
+  Written from the CV — keep it true.
   images: put photos in assets/images/impact/ e.g. "assets/images/impact/mentoring-1.jpg"
   (empty list = placeholder tiles).
 */
@@ -139,41 +139,39 @@ const IMPACT = {
   quote: "Life's most persistent and urgent question is: What are you doing for others?",
   quoteBy: "Martin Luther King Jr.",
   story: [
-    // TODO: make this your real story
-    "I started data engineering from zero. No shortcuts, just a lot of questions, broken pipelines and patient people who explained things to me in plain English.",
-    "That's why I share what I learn. Every concept I finally understand becomes a post, a notebook or a study session for someone one step behind me.",
-    "For me, good data work isn't just moving tables around. It's making information reliable enough that people can make better decisions with it."
+    "My journey started in mechanical engineering, moved into software engineering and machine learning, and led me to data engineering.",
+    "Along the way, I've used data where it matters: tracking elephant movements in Kenya, helping a conservancy understand its communities, and making sure monitoring records reflect what really happened.",
+    "Outside tech, I co-founded VegInn to connect smallholder farmers with urban markets. For me, impact means building reliable systems that help organisations, and the people they serve, make better decisions across Africa."
   ],
-  tagline: "Data only matters when it helps someone decide better.",
+  tagline: "Reliable data helps people make better decisions.",
   stats: [
-    // TODO: replace with your real numbers — or delete any you don't have yet
-    { value: "10+", label: "peers supported in study sessions" },
-    { value: "5+",  label: "tutorials & write-ups shared" },
-    { value: "3",   label: "community data projects" }
+    { value: "4", label: "volunteer roles in data & events" },
+    { value: "2", label: "countries worked in: Rwanda & Kenya" },
+    { value: "1", label: "agribusiness co-founded" }
   ],
   areas: [
     {
-      title: "Learning in public",                       // TODO
-      text: "I document everything I learn, from SQL basics to retry logic in pipelines, so beginners have a friendlier starting point than I did.",
-      highlights: ["Beginner-friendly write-ups on GitHub", "Plain-English explanations of data engineering terms"],
+      title: "Connecting farmers to city markets",
+      text: "As Co-Founder of VegInn, I work with local farmers to improve harvesting practices, reduce post-harvest waste and bring smallholder produce to urban households and supermarkets.",
+      highlights: ["Fresh, ready-to-cook vegetable packs", "Less post-harvest waste for smallholder farmers"],
       images: []
     },
     {
-      title: "Peer mentoring at AmaliTech",              // TODO
-      text: "I run and join study sessions where we debug each other's pipelines, review code and prepare for real-world tasks together.",
-      highlights: ["Weekly study group", "Code reviews for fellow trainees"],
+      title: "Data for conservation",
+      text: "At Space for Giants and Suyian Conservancy, I turned field data into insight for wildlife monitoring, community engagement and protected-area management.",
+      highlights: ["Elephant GPS-collar analysis with EarthRanger", "Social Assessment for Protected Areas (SAPA) survey analysis"],
       images: []
     },
     {
-      title: "Women in data & tech",                     // TODO
-      text: "I want more girls in Rwanda to see data engineering as a career they can own. I share my journey and encourage others to start, even from zero.",
-      highlights: ["Speaking with students about tech careers", "Encouraging women to join data communities"],
+      title: "Data volunteering for monitoring & evaluation",
+      text: "With AFS Forum and SOMA Rwanda, I checked and reconciled records so evaluation teams could trust the numbers they reported.",
+      highlights: ["Matched participant records with session attendance (AFS Forum, 2024)", "Verified datasets before reporting (SOMA Rwanda, 2025)"],
       images: []
     },
     {
-      title: "Data for community good",                  // TODO
-      text: "I use my skills on small projects that help local organisations organise and understand their data.",
-      highlights: ["Cleaning and structuring data for local initiatives", "Simple dashboards non-technical teams can use"],
+      title: "Supporting tech communities",
+      text: "I volunteer behind the scenes at tech events in Kigali, helping with setup, logistics and delegate coordination.",
+      highlights: ["Deep Learning Indaba (Aug 2025)", "Silver Gara (Nov 2025)"],
       images: []
     }
   ]
