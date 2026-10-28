@@ -209,11 +209,41 @@ onPage("chat", () => {
   // Restart a CSS animation by removing the class, forcing a reflow, then adding it back
   function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
 
+  /* Speaking: words appear one by one while the twin nods along.
+     Screen readers get the full answer at once (word-by-word would be noisy). */
+  const reduceMotionChat = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let speakTimer;
   function say(text) {
-    bubbleText.textContent = text;
+    clearInterval(speakTimer);
     bubble.classList.remove("thinking");
     replay(bubble, "pop");
-    replay(avatarWrap, "talking");
+    $("srAnswer").textContent = text;
+    if (reduceMotionChat) { bubbleText.textContent = text; return; }
+    const words = text.split(" ");
+    let i = 0;
+    bubbleText.textContent = "";
+    avatarWrap.classList.add("talking");
+    speakTimer = setInterval(() => {
+      bubbleText.textContent += (i ? " " : "") + words[i++];
+      if (i >= words.length) { clearInterval(speakTimer); avatarWrap.classList.remove("talking"); }
+    }, 70);   // ~14 words per second feels like quick speech
+  }
+
+  /* Looking: the twin turns slightly toward the mouse pointer (desktop only) */
+  const tilt = $("avatarTilt");
+  if (!reduceMotionChat && window.matchMedia("(pointer: fine)").matches) {
+    let frame;
+    window.addEventListener("pointermove", e => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = tilt.getBoundingClientRect();
+        // -1 … 1: where the pointer is compared with the avatar's centre
+        const dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / 600));
+        const dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / 600));
+        tilt.style.transform = `perspective(700px) rotateY(${dx * 10}deg) rotateX(${-dy * 6}deg) translateX(${dx * 6}px)`;
+      });
+    });
+    document.addEventListener("pointerleave", () => { tilt.style.transform = ""; });
   }
   function ask(q) {
     q = q.trim();

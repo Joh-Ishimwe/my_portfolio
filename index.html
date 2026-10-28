@@ -29,9 +29,12 @@
         <div class="chat" id="chat">
           <div class="chat-stage">
             <div class="avatar-wrap" id="avatarWrap">
-              <img id="avatarImg" class="avatar" alt="Cartoon twin of Josiane">
+              <div class="avatar-tilt" id="avatarTilt">
+                <img id="avatarImg" class="avatar" alt="Cartoon twin of Josiane">
+              </div>
             </div>
-            <div class="bubble" id="bubble" aria-live="polite">
+            <p class="sr-only" id="srAnswer" aria-live="polite"></p>
+            <div class="bubble" id="bubble">
               <p class="you-asked" id="youAsked"></p>
               <p id="bubbleText"></p>
             </div>
