@@ -34,19 +34,25 @@
         </div>
       </div>
 
-      <!-- Chat assistant -->
-      <div class="chat" id="chat">
-        <div class="chat-head">
-          <span class="dot"></span>
-          <strong>Ask Joh</strong>
-          <span class="mono muted small">online</span>
+      <!-- Chat assistant: cartoon twin + speech bubble -->
+      <div class="chat-col">
+        <p class="chat-intro" id="chatIntro"></p>
+        <div class="chat" id="chat">
+          <div class="chat-stage">
+            <div class="avatar-wrap" id="avatarWrap">
+              <img id="avatarImg" class="avatar" alt="Cartoon twin of Josiane">
+            </div>
+            <div class="bubble" id="bubble" aria-live="polite">
+              <p class="you-asked" id="youAsked"></p>
+              <p id="bubbleText"></p>
+            </div>
+          </div>
+          <div class="chat-suggest" id="chatSuggest"></div>
+          <form class="chat-input" id="chatForm">
+            <input id="chatInput" type="text" placeholder="Ask anything about Josiane" autocomplete="off" aria-label="Ask a question">
+            <button type="submit">Send</button>
+          </form>
         </div>
-        <div class="chat-body" id="chatBody" aria-live="polite"></div>
-        <div class="chat-suggest" id="chatSuggest"></div>
-        <form class="chat-input" id="chatForm">
-          <input id="chatInput" type="text" placeholder="Ask me anything…" autocomplete="off" aria-label="Ask a question">
-          <button type="submit" aria-label="Send">➤</button>
-        </form>
       </div>
     </section>
 

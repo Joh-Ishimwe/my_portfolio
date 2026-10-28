@@ -114,16 +114,20 @@ $("socials").innerHTML = Object.entries(PROFILE.links)
   .map(([k, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener">${labels[k] || k}</a>`).join("");
 $("copyright").textContent = `© ${new Date().getFullYear()} ${PROFILE.name} · ${PROFILE.location}`;
 
-/* ---------- Chat assistant (keyword matching, no AI) ---------- */
-const body = $("chatBody");
-function addMsg(text, who) {
-  const el = document.createElement("div");
-  el.className = `msg ${who}`;
-  el.textContent = text;
-  body.appendChild(el);
-  body.scrollTop = body.scrollHeight;
-  return el;
-}
+/* ---------- Chat assistant: cartoon twin + speech bubble (keyword matching, no AI) ---------- */
+const avatarWrap = $("avatarWrap"), avatarImg = $("avatarImg");
+const bubble = $("bubble"), bubbleText = $("bubbleText"), youAsked = $("youAsked");
+$("chatIntro").textContent = CHAT.intro;
+
+// No twin image yet? Show a circle with initials instead of a broken image.
+avatarImg.src = PROFILE.avatar;
+avatarImg.onerror = () => {
+  const ph = document.createElement("div");
+  ph.className = "avatar avatar-fallback";
+  ph.textContent = PROFILE.name.split(" ").map(w => w[0]).join("");
+  avatarImg.replaceWith(ph);
+};
+
 function answer(question) {
   const words = question.toLowerCase().match(/[a-z]+/g) || [];
   let best = null, bestScore = 0;
@@ -133,13 +137,24 @@ function answer(question) {
   }
   return best ? best.reply() : CHAT.fallback;
 }
-function ask(q) {
-  if (!q.trim()) return;
-  addMsg(q, "me");
-  const typing = addMsg("•••", "bot typing");
-  setTimeout(() => { typing.remove(); addMsg(answer(q), "bot"); }, 600);
+// Restart a CSS animation by removing the class, forcing a reflow, then adding it back
+function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+function say(text) {
+  bubbleText.textContent = text;
+  bubble.classList.remove("thinking");
+  replay(bubble, "pop");
+  replay(avatarWrap, "talking");
 }
-addMsg(CHAT.greeting, "bot");
+function ask(q) {
+  q = q.trim();
+  if (!q) return;
+  youAsked.textContent = `You: ${q}`;
+  bubbleText.textContent = "";
+  bubble.classList.add("thinking");                // shows animated dots
+  setTimeout(() => say(answer(q)), 700);
+}
+say(CHAT.greeting);
 $("chatSuggest").innerHTML = CHAT.suggestions.map(s => `<button type="button">${esc(s)}</button>`).join("");
 $("chatSuggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
 $("chatForm").addEventListener("submit", e => {
