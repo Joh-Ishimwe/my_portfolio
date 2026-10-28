@@ -98,6 +98,18 @@ onPage("skillGrid", () => {
     </div>`).join("");
 });
 
+/* ---------- Experience (Toolbox page) ---------- */
+onPage("experienceList", () => {
+  $("experienceList").innerHTML = EXPERIENCE.map(x => `
+    <li class="job reveal">
+      <span class="job-dates">${esc(x.dates)}</span>
+      <div>
+        <h3>${esc(x.role)} <span class="muted">· ${esc(x.org)}</span></h3>
+        <p>${esc(x.line)}${x.place ? ` <span class="muted small">— ${esc(x.place)}</span>` : ""}</p>
+      </div>
+    </li>`).join("");
+});
+
 /* ---------- Impact: quote, story, stats ---------- */
 onPage("impactQuote", () => {
   $("impactQuote").textContent = IMPACT.quote;
