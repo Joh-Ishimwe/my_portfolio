@@ -7,18 +7,8 @@
   <meta name="description" content="Portfolio of Josiane Ishimwe, data engineer based in Kigali, Rwanda.">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <header class="nav">
-    <a class="logo" href="#top" id="logo">Joh.</a>
-    <nav>
-      <a href="#achievements">Achievements</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#impact">Impact</a>
-      <a href="#about">About me</a>
-    </nav>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">◐</button>
-  </header>
+<body data-page="home">
+  <header class="nav" id="siteNav"></header>
 
   <main id="top">
     <!-- HERO -->
@@ -29,7 +19,7 @@
         <p class="tagline" id="heroTagline"></p>
         <div class="hero-cta">
           <a class="btn primary" href="#projects">See my work</a>
-          <a class="btn ghost" href="#contact">Get in touch</a>
+          <a class="btn ghost" href="about.html">Get in touch</a>
         </div>
       </div>
 
@@ -102,14 +92,10 @@
     </section>
   </main>
 
-  <footer id="contact" class="footer">
-    <h2>Let's build something reliable.</h2>
-    <a class="big-mail" id="mailLink"></a>
-    <div class="socials" id="socials"></div>
-    <p class="muted small" id="copyright"></p>
-  </footer>
+  <footer id="siteFooter" class="footer"></footer>
 
   <script src="js/data.js"></script>
+  <script src="js/layout.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
