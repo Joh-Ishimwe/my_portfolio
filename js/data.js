@@ -75,25 +75,33 @@ const ACHIEVEMENTS = [
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
 const PROJECTS = [
   {
-    title: "Weather Data Pipeline",           // TODO: replace with real projects
-    summary: "Daily ingestion from a public weather API into PostgreSQL, with retry/backoff, validation and incremental loads.",
-    stack: ["Python", "PostgreSQL", "Airflow", "Docker"],
+    title: "PostgreSQL data pipelines",
+    summary: "Python and SQL pipelines that ingest, transform, validate and load data into PostgreSQL, with schema checks, row-level rules, structured logging and CI tests. Built during my AmaliTech apprenticeship.",
+    stack: ["Python", "SQL", "PostgreSQL", "Airflow", "GitHub Actions"],
+    image: "",
+    repo: "",   // TODO: link a public repo if you have one
+    demo: ""
+  },
+  {
+    title: "TractorCare",
+    summary: "Predictive maintenance system that classifies tractor engine sounds to spot problems early. MFCC audio features + TensorFlow model, FastAPI backend, MongoDB, and a Flutter app with offline sync. Tested on 50 recordings from Kayonza.",
+    stack: ["Python", "TensorFlow", "librosa", "FastAPI", "MongoDB", "Flutter"],
+    image: "",
+    repo: "",   // TODO
+    demo: ""
+  },
+  {
+    title: "Elephant movement analysis",
+    summary: "Cleaned conservation datasets and analysed GPS-collar data to understand elephant movement, then shared it through maps, dashboards and reports for Space for Giants.",
+    stack: ["EarthRanger", "ArcGIS Online", "Tableau"],
     image: "",
     repo: "",
     demo: ""
   },
   {
-    title: "Sales Analytics Warehouse",
-    summary: "Star-schema warehouse modelled with dbt, feeding a Power BI dashboard for regional sales.",
-    stack: ["SQL", "dbt", "Power BI"],
-    image: "",
-    repo: "",
-    demo: ""
-  },
-  {
-    title: "Data Quality Checker",
-    summary: "Reusable validation layer that quarantines bad records instead of crashing the whole run.",
-    stack: ["Python", "Pandas", "pytest"],
+    title: "SAPA survey analysis",
+    summary: "Prepared, cleaned and validated Social Assessment for Protected Areas survey data, then produced analyses and visuals to support Suyian Conservancy's community work.",
+    stack: ["Data cleaning", "Validation", "Exploratory analysis"],
     image: "",
     repo: "",
     demo: ""
