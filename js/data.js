@@ -17,6 +17,7 @@ const PROFILE = {
     "When I'm not wrangling data, I'm learning in public and documenting what I build."
   ],
   photo: "assets/images/profile.jpg",   // TODO: add your photo (square works best)
+  avatar: "assets/images/avatar.png",   // TODO: your AI cartoon twin — PNG with transparent background looks best
   cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: drop your CV PDF here
   email: "josiane.ishimwe@amalitechtraining.org",
   links: {
@@ -75,7 +76,9 @@ const PROJECTS = [
   keywords: words that trigger the answer (lowercase).
 */
 const CHAT = {
-  greeting: "Hi! I'm Joh's mini assistant. Ask me about her skills, projects, experience or how to contact her.",
+  botName: "JOH-bot 1.0",
+  intro: "Chat with my AI cartoon twin to learn more about me",
+  greeting: "Hello! My name is JOH-bot 1.0. Let's chat!",
   suggestions: ["What do you do?", "Top skills?", "Show projects", "How to contact?"],
   answers: [
     { keywords: ["do", "who", "about", "yourself", "role"], reply: () => `${PROFILE.name} is a ${PROFILE.role} based in ${PROFILE.location}. ${PROFILE.tagline}` },
