@@ -116,3 +116,8 @@ $("themeToggle").addEventListener("click", () => {
   try { localStorage.setItem("theme", root.dataset.theme); } catch (_) {}
 });
 
+/* ---------- Reveal-on-scroll animation ---------- */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+}), { threshold: .15 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
