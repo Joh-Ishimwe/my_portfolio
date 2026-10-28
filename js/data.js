@@ -43,12 +43,14 @@ const EXPERIENCE = [
     line: "One sentence on what you did and the result." }
 ];
 
-/* Achievements carousel — newest first */
+/* Achievements carousel — newest first.
+   image: optional photo for the card, e.g. "assets/images/achievements/amalitech.jpg"
+   (landscape works best; leave "" for a plain placeholder) */
 const ACHIEVEMENTS = [
-  { date: "2026", title: "AmaliTech Data Engineering Training", text: "Selected into AmaliTech's data engineering programme.", link: "" }, // TODO
-  { date: "2026", title: "First production-style pipeline", text: "Shipped an ETL pipeline with retries, logging and tests.", link: "" },  // TODO
-  { date: "2025", title: "Certification — TODO", text: "e.g. AWS Cloud Practitioner / Google Data Analytics.", link: "" },      // TODO
-  { date: "2025", title: "Degree / Education — TODO", text: "e.g. BSc in Computer Science, University of Rwanda.", link: "" }   // TODO
+  { date: "2026", title: "AmaliTech Data Engineering Training", text: "Selected into AmaliTech's data engineering programme.", image: "", link: "" }, // TODO
+  { date: "2026", title: "First production-style pipeline", text: "Shipped an ETL pipeline with retries, logging and tests.", image: "", link: "" },  // TODO
+  { date: "2025", title: "Certification — TODO", text: "e.g. AWS Cloud Practitioner / Google Data Analytics.", image: "", link: "" },      // TODO
+  { date: "2025", title: "Degree / Education — TODO", text: "e.g. BSc in Computer Science, University of Rwanda.", image: "", link: "" }   // TODO
 ];
 
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
