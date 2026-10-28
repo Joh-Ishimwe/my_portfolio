@@ -29,11 +29,13 @@ const PROFILE = {
 };
 
 const SKILLS = {
-  "Languages": ["Python", "SQL", "Bash"],
-  "Data & Processing": ["Pandas", "PySpark", "dbt"],                 // TODO: confirm
-  "Storage": ["PostgreSQL", "Parquet", "AWS S3"],
-  "Orchestration & Tools": ["Airflow", "Docker", "Git", "GitHub Actions"],
-  "Analytics": ["Power BI"]
+  "Programming": ["Python", "SQL", "JavaScript", "Dart", "HTML", "CSS"],
+  "Data Engineering": ["ETL/ELT", "Data modelling", "Data validation", "Airflow", "Spark/PySpark", "Kafka"],
+  "Databases & Storage": ["PostgreSQL", "MySQL", "MongoDB", "MinIO"],
+  "ML & Analytics": ["Pandas", "NumPy", "scikit-learn", "TensorFlow/TFLite", "Tableau", "Power BI", "Excel"],
+  "Software & Tools": ["FastAPI", "REST APIs", "Docker", "Git", "GitHub Actions", "Metabase"],
+  "GIS": ["ArcGIS Online", "Survey123", "EarthRanger"],
+  "Cloud": ["AWS", "Google Cloud"]
 };
 
 /* Where I've worked — keep it short: newest first, one line each */
