@@ -91,3 +91,53 @@ const CHAT = {
   ],
   fallback: "Good question! I don't know that one yet — try asking about skills, projects or contact."
 };
+
+/*
+  IMPACT section — what you do for others.
+  Every TODO is a draft written for you: change the words so they're 100% true.
+  images: put photos in assets/images/impact/ e.g. "assets/images/impact/mentoring-1.jpg"
+  (empty list = placeholder tiles).
+*/
+const IMPACT = {
+  quote: "Life's most persistent and urgent question is: What are you doing for others?",
+  quoteBy: "Martin Luther King Jr.",
+  story: [
+    // TODO: make this your real story
+    "I started data engineering from zero. No shortcuts, just a lot of questions, broken pipelines and patient people who explained things to me in plain English.",
+    "That's why I share what I learn. Every concept I finally understand becomes a post, a notebook or a study session for someone one step behind me.",
+    "For me, good data work isn't just moving tables around. It's making information reliable enough that people can make better decisions with it."
+  ],
+  tagline: "Data only matters when it helps someone decide better.",
+  stats: [
+    // TODO: replace with your real numbers — or delete any you don't have yet
+    { value: "10+", label: "peers supported in study sessions" },
+    { value: "5+",  label: "tutorials & write-ups shared" },
+    { value: "3",   label: "community data projects" }
+  ],
+  areas: [
+    {
+      title: "Learning in public",                       // TODO
+      text: "I document everything I learn, from SQL basics to retry logic in pipelines, so beginners have a friendlier starting point than I did.",
+      highlights: ["Beginner-friendly write-ups on GitHub", "Plain-English explanations of data engineering terms"],
+      images: []
+    },
+    {
+      title: "Peer mentoring at AmaliTech",              // TODO
+      text: "I run and join study sessions where we debug each other's pipelines, review code and prepare for real-world tasks together.",
+      highlights: ["Weekly study group", "Code reviews for fellow trainees"],
+      images: []
+    },
+    {
+      title: "Women in data & tech",                     // TODO
+      text: "I want more girls in Rwanda to see data engineering as a career they can own. I share my journey and encourage others to start, even from zero.",
+      highlights: ["Speaking with students about tech careers", "Encouraging women to join data communities"],
+      images: []
+    },
+    {
+      title: "Data for community good",                  // TODO
+      text: "I use my skills on small projects that help local organisations organise and understand their data.",
+      highlights: ["Cleaning and structuring data for local initiatives", "Simple dashboards non-technical teams can use"],
+      images: []
+    }
+  ]
+};
