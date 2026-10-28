@@ -91,10 +91,10 @@ const CHAT = {
   answers: [
     { keywords: ["do", "who", "about", "yourself", "role"], reply: () => `${PROFILE.name} is a ${PROFILE.role} based in ${PROFILE.location}. ${PROFILE.tagline}` },
     { keywords: ["skill", "stack", "tool", "tech", "language"], reply: () => "Main stack: " + Object.values(SKILLS).flat().slice(0, 8).join(", ") + "." },
-    { keywords: ["project", "work", "built", "portfolio"], reply: () => "Recent projects: " + PROJECTS.map(p => p.title).join(" · ") + ". Scroll to Projects for details!" },
+    { keywords: ["project", "work", "built", "portfolio"], reply: () => "Recent projects: " + PROJECTS.map(p => p.title).join(" · ") + ". Scroll down to Projects for details!" },
     { keywords: ["experience", "job", "amalitech", "intern", "training"], reply: () => ACHIEVEMENTS[0].title + " — " + ACHIEVEMENTS[0].text },
-    { keywords: ["contact", "email", "hire", "reach", "linkedin"], reply: () => `Email ${PROFILE.email} or connect on LinkedIn — links are at the bottom of the page.` },
-    { keywords: ["cv", "resume"], reply: () => "You can download the CV with the button in the About section." },
+    { keywords: ["contact", "email", "hire", "reach", "linkedin"], reply: () => `Email ${PROFILE.email} or connect on LinkedIn — links are at the bottom of every page.` },
+    { keywords: ["cv", "resume"], reply: () => "You can download the CV on the About me page." },
     { keywords: ["hi", "hello", "hey", "muraho"], reply: () => "Hello! What would you like to know?" }
   ],
   fallback: "Good question! I don't know that one yet — try asking about skills, projects or contact."
