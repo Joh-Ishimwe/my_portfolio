@@ -128,8 +128,11 @@ document.querySelectorAll("[data-gallery]").forEach((wrap, i) => {
   wrap.querySelector(".gallery-nav").addEventListener("click", e => {
     const dir = Number(e.target.dataset.dir);
     if (!dir) return;
-    const step = gallery.querySelector(".slide").offsetWidth + 12; // one slide + gap
-    gallery.scrollBy({ left: dir * step, behavior: "smooth" });
+    // Find the photo currently at the left edge, then scroll exactly to its neighbour
+    const slides = [...gallery.children];
+    const current = slides.findIndex(sl => sl.offsetLeft - gallery.offsetLeft >= gallery.scrollLeft - 5);
+    const target = slides[Math.min(slides.length - 1, Math.max(0, current + dir))];
+    gallery.scrollTo({ left: target.offsetLeft - slides[0].offsetLeft, behavior: "smooth" });
   });
 });
 
