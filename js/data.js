@@ -17,7 +17,7 @@ const PROFILE = {
     "When I'm not wrangling data, I'm learning in public and documenting what I build."
   ],
   photo: "assets/images/profile.jpg",   // TODO: add your photo (square works best)
-  avatar: "assets/images/avatar.png",   // TODO: your AI cartoon twin — PNG with transparent background looks best
+  avatar: "assets/images/avatar.webp",  // your AI cartoon twin (transparent background)
   cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: drop your CV PDF here
   email: "josiane.ishimwe@amalitechtraining.org",
   links: {
