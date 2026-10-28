@@ -59,12 +59,8 @@ window.addEventListener("resize", () => {
 });
 
 /* ---------- Projects ---------- */
-const gradients = [
-  "linear-gradient(135deg,#ff5a36,#ffb347)",
-  "linear-gradient(135deg,#2f6bff,#7dd3fc)",
-  "linear-gradient(135deg,#16161a,#6b4bff)",
-  "linear-gradient(135deg,#0ea5a4,#a3e635)"
-];
+// Placeholder covers use the neutral panel colour (no loud gradients)
+const gradients = ["var(--panel)"];
 $("projectGrid").innerHTML = PROJECTS.map((p, i) => {
   const cover = p.image
     ? `<img class="cover" src="${esc(p.image)}" alt="${esc(p.title)} screenshot" loading="lazy">`
