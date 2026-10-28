@@ -65,3 +65,12 @@ photo.onerror = () => {
 };
 $("cvBtn").href = PROFILE.cv;
 
+/* ---------- Footer ---------- */
+$("mailLink").href = `mailto:${PROFILE.email}`;
+$("mailLink").textContent = PROFILE.email;
+const labels = { linkedin: "LinkedIn", github: "GitHub", medium: "Blog" };
+$("socials").innerHTML = Object.entries(PROFILE.links)
+  .filter(([, url]) => url)
+  .map(([k, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener">${labels[k] || k}</a>`).join("");
+$("copyright").textContent = `© ${new Date().getFullYear()} ${PROFILE.name} · ${PROFILE.location}`;
+
