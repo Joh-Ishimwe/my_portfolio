@@ -8,15 +8,48 @@ $("heroName").innerHTML = `${esc(first)}<br><span>${esc(rest.join(" "))}</span>`
 $("heroRole").textContent = `// ${PROFILE.role} · ${PROFILE.location}`;
 $("heroTagline").textContent = PROFILE.tagline;
 
-/* ---------- Achievements (duplicated once so the loop is seamless) ---------- */
-const achHTML = ACHIEVEMENTS.map(a => `
+/* ---------- Achievements carousel ----------
+   How the endless loop works: the track holds the cards twice (A + A).
+   CSS slides it left by exactly 50% (one copy), then snaps back to 0 —
+   which looks identical, so the loop seems endless.
+   Each copy must be at least as wide as the screen, or a gap appears,
+   so on wide screens we repeat the cards more times inside each copy. */
+const achCard = a => `
   <article class="ach">
     <span class="mono">${esc(a.date)}</span>
     <h3>${esc(a.title)}</h3>
     <p>${esc(a.text)}</p>
     ${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">Learn more →</a>` : ""}
-  </article>`).join("");
-$("achTrack").innerHTML = achHTML + achHTML.replace(/<article/g, '<article aria-hidden="true"');
+  </article>`;
+const marquee = $("marquee"), track = $("achTrack");
+const SPEED = 40; // pixels per second — same speed no matter how many cards
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function buildMarquee() {
+  const set = ACHIEVEMENTS.map(achCard).join("");
+  track.innerHTML = set;
+  if (reduceMotion) return;                      // static list, no copies needed
+  const card = track.firstElementChild;
+  const cardW = card.offsetWidth + parseFloat(getComputedStyle(card).marginRight);
+  const setW = cardW * ACHIEVEMENTS.length;
+  const reps = Math.max(1, Math.ceil(marquee.clientWidth / setW));
+  const half = set.repeat(reps);
+  track.innerHTML = half + half;
+  // Only the first set is "real": hide the copies from screen readers and the Tab key
+  [...track.children].slice(ACHIEVEMENTS.length).forEach(el => {
+    el.setAttribute("aria-hidden", "true");
+    el.inert = true;
+  });
+  track.style.animationDuration = `${(setW * reps) / SPEED}s`;
+}
+buildMarquee();
+let lastW = marquee.clientWidth, resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (marquee.clientWidth !== lastW) { lastW = marquee.clientWidth; buildMarquee(); }
+  }, 200);
+});
 
 /* ---------- Projects ---------- */
 const gradients = [
