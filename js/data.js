@@ -62,10 +62,14 @@ const EDUCATION = [
    image: optional photo for the card, e.g. "assets/images/achievements/amalitech.jpg"
    (landscape works best; leave "" for a plain placeholder) */
 const ACHIEVEMENTS = [
-  { date: "2026", title: "AmaliTech Data Engineering Training", text: "Selected into AmaliTech's data engineering programme.", image: "", link: "" }, // TODO
-  { date: "2026", title: "First production-style pipeline", text: "Shipped an ETL pipeline with retries, logging and tests.", image: "", link: "" },  // TODO
-  { date: "2025", title: "Certification — TODO", text: "e.g. AWS Cloud Practitioner / Google Data Analytics.", image: "", link: "" },      // TODO
-  { date: "2025", title: "Degree / Education — TODO", text: "e.g. BSc in Computer Science, University of Rwanda.", image: "", link: "" }   // TODO
+  { date: "Oct 2026", title: "AWS Certified Cloud Practitioner", text: "Certified in AWS cloud fundamentals: core services, security, pricing and architecture.", image: "", link: "" },
+  { date: "Jun 2026", title: "Data Engineering Apprentice, AmaliTech", text: "Joined AmaliTech to build production-style data pipelines.", image: "", link: "" },
+  { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", text: "Certification in technology for protected-area and wildlife conservation work.", image: "", link: "" },
+  { date: "Dec 2025", title: "BSc Software Engineering, ALU", text: "Graduated with a Machine Learning specialisation, CGPA 4.30 / 5.00.", image: "", link: "" },
+  { date: "Nov 2025", title: "TractorCare capstone", text: "Predictive maintenance app that listens to tractor engine sounds to flag problems.", image: "", link: "" },
+  { date: "Nov 2024", title: "Professional Scrum Master I", text: "Scrum.org certification in agile delivery and Scrum.", image: "", link: "" },
+  { date: "Jun 2024", title: "SheCanCode, Igire Rwanda", text: "Completed the SheCanCode programme for women in tech.", image: "", link: "" },
+  { date: "Mar 2023", title: "Aspire Leaders Programme", text: "Selected for the Aspire Institute leadership programme.", image: "", link: "" }
 ];
 
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
