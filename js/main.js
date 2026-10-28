@@ -74,3 +74,37 @@ $("socials").innerHTML = Object.entries(PROFILE.links)
   .map(([k, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener">${labels[k] || k}</a>`).join("");
 $("copyright").textContent = `© ${new Date().getFullYear()} ${PROFILE.name} · ${PROFILE.location}`;
 
+/* ---------- Chat assistant (keyword matching, no AI) ---------- */
+const body = $("chatBody");
+function addMsg(text, who) {
+  const el = document.createElement("div");
+  el.className = `msg ${who}`;
+  el.textContent = text;
+  body.appendChild(el);
+  body.scrollTop = body.scrollHeight;
+  return el;
+}
+function answer(question) {
+  const words = question.toLowerCase().match(/[a-z]+/g) || [];
+  let best = null, bestScore = 0;
+  for (const a of CHAT.answers) {
+    const score = a.keywords.filter(k => words.some(w => w.startsWith(k))).length;
+    if (score > bestScore) { best = a; bestScore = score; }
+  }
+  return best ? best.reply() : CHAT.fallback;
+}
+function ask(q) {
+  if (!q.trim()) return;
+  addMsg(q, "me");
+  const typing = addMsg("•••", "bot typing");
+  setTimeout(() => { typing.remove(); addMsg(answer(q), "bot"); }, 600);
+}
+addMsg(CHAT.greeting, "bot");
+$("chatSuggest").innerHTML = CHAT.suggestions.map(s => `<button type="button">${esc(s)}</button>`).join("");
+$("chatSuggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
+$("chatForm").addEventListener("submit", e => {
+  e.preventDefault();
+  ask($("chatInput").value);
+  $("chatInput").value = "";
+});
+
