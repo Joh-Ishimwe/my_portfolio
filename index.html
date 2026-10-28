@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Josiane Ishimwe — Data Engineer</title>
+  <meta name="description" content="Portfolio of Josiane Ishimwe, data engineer based in Kigali, Rwanda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="#top" id="logo">Joh.</a>
+    <nav>
+      <a href="#achievements">Achievements</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About me</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <p class="eyebrow mono" id="heroRole"></p>
+        <h1 id="heroName"></h1>
+        <p class="tagline" id="heroTagline"></p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">See my work</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <!-- Chat assistant -->
+      <div class="chat" id="chat">
+        <div class="chat-head">
+          <span class="dot"></span>
+          <strong>Ask Joh</strong>
+          <span class="mono muted small">online</span>
+        </div>
+        <div class="chat-body" id="chatBody" aria-live="polite"></div>
+        <div class="chat-suggest" id="chatSuggest"></div>
+        <form class="chat-input" id="chatForm">
+          <input id="chatInput" type="text" placeholder="Ask me anything…" autocomplete="off" aria-label="Ask a question">
+          <button type="submit" aria-label="Send">➤</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS carousel -->
+    <section id="achievements" class="section">
+      <h2>Recent achievements</h2>
+      <div class="marquee" id="marquee">
+        <div class="marquee-track" id="achTrack"></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2>Project highlights <span class="muted">— lezz go!</span></h2>
+      <div class="projects" id="projectGrid"></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2>Toolbox</h2>
+      <div class="skills" id="skillGrid"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section about">
+      <img id="aboutPhoto" alt="Portrait of Josiane Ishimwe">
+      <div>
+        <h2>About me</h2>
+        <div id="aboutText"></div>
+        <a class="btn primary" id="cvBtn" download>Download CV</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer">
+    <h2>Let's build something reliable.</h2>
+    <a class="big-mail" id="mailLink"></a>
+    <div class="socials" id="socials"></div>
+    <p class="muted small" id="copyright"></p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
