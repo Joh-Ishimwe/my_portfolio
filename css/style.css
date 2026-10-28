@@ -37,6 +37,7 @@ body {
   transition: background .3s, color .3s;
 }
 a { color: inherit; }
+button, input { font-family: inherit; }   /* browsers don't pass the page font to form controls by default */
 img { max-width: 100%; display: block; }
 .mono { font-family: var(--font-mono); font-style: italic; }
 .muted { color: var(--muted); }
@@ -139,7 +140,7 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 .chat-input:focus-within { border-color: var(--bubble); }
 .chat-input input { flex: 1; min-width: 0; border: 0; background: transparent; color: #fff; font: inherit; font-size: .9rem; outline: none; }
 .chat-input input::placeholder { color: #8d8d96; }
-.chat-input button { border: 0; background: #fff; color: #111; border-radius: 999px; padding: .5rem 1.2rem; font: 600 .85rem var(--font-body); cursor: pointer; }
+.chat-input button { border: 0; background: #fff; color: #111; border-radius: 999px; padding: .5rem 1.2rem; font-weight: 600; font-size: .85rem; cursor: pointer; }
 .chat-input button:hover { background: var(--bubble); color: #fff; }
 
 /* ---------- Achievements marquee (auto-scrolling carousel) ---------- */
