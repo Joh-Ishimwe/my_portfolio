@@ -115,18 +115,50 @@ const PROJECTS = [
 const CHAT = {
   botName: "JOH-bot 1.0",
   intro: "Chat with my AI cartoon twin to learn more about me",
-  greeting: "Hello! My name is JOH-bot 1.0. Let's chat!",
-  suggestions: ["What do you do?", "Top skills?", "Show projects", "How to contact?"],
-  answers: [
-    { keywords: ["do", "who", "about", "yourself", "role"], reply: () => `${PROFILE.name} is a ${PROFILE.role} based in ${PROFILE.location}. ${PROFILE.tagline}` },
-    { keywords: ["skill", "stack", "tool", "tech", "language"], reply: () => "Main stack: " + Object.values(SKILLS).flat().slice(0, 8).join(", ") + "." },
-    { keywords: ["project", "work", "built", "portfolio"], reply: () => "Recent projects: " + PROJECTS.map(p => p.title).join(" · ") + ". Scroll down to Projects for details!" },
-    { keywords: ["experience", "job", "amalitech", "intern", "training"], reply: () => ACHIEVEMENTS[0].title + " — " + ACHIEVEMENTS[0].text },
-    { keywords: ["contact", "email", "hire", "reach", "linkedin"], reply: () => `Email ${PROFILE.email} or connect on LinkedIn — links are at the bottom of every page.` },
-    { keywords: ["cv", "resume"], reply: () => "You can download the CV on the About me page." },
-    { keywords: ["hi", "hello", "hey", "muraho"], reply: () => "Hello! What would you like to know?" }
+  greeting: "Hello! I'm Josiane's cartoon twin. Ask me anything about my work!",
+  suggestions: ["What do you do?", "Do you know Airflow?", "Your projects?", "Where did you study?", "How can I contact you?"],
+  /*
+    How matching works (see answer() in main.js):
+    - The question is split into whole words ("projects" also matches "project").
+    - Each topic lists words with a weight: strong words count 3, normal 2, weak 1.
+    - The topic with the highest total wins.
+    - If you name a project ("TractorCare") it describes that project.
+    - If you name a tool ("Spark", "GIS"), it looks it up in your skills, projects,
+      jobs and certifications — this beats "generic" topics like experience.
+  */
+  topics: [
+    { words: { hi: 2, hello: 2, hey: 2, muraho: 3, bonjour: 3, morning: 1 },
+      reply: () => "Hello! What would you like to know? You can ask about my skills, projects, experience or education." },
+    { words: { thanks: 3, thank: 3, cool: 1, great: 1, nice: 1 },
+      reply: () => "You're welcome! Anything else you'd like to know?" },
+    { words: { who: 2, yourself: 3, introduce: 3, about: 1, background: 2, summary: 2, do: 1, role: 2, currently: 2, position: 2 },
+      reply: () => `I'm ${PROFILE.name}, a ${PROFILE.role} in ${PROFILE.location}. ${PROFILE.about[0]}` },
+    { generic: true, words: { skill: 3, stack: 3, tools: 2, tool: 2, technologies: 3, tech: 2, programming: 3, good: 1, strongest: 2 },
+      reply: () => `My core stack: ${SKILLS["Programming"].slice(0, 2).join(" and ")} for code, ${SKILLS["Data Engineering"].slice(3).join(", ")} for pipelines, and ${SKILLS["Databases & Storage"].slice(0, 2).join(", ")} for storage. The full list is on the Toolbox page.` },
+    { generic: true, words: { project: 3, built: 2, build: 2, portfolio: 2, tractorcare: 3, capstone: 3, made: 1 },
+      reply: () => `My projects: ${PROJECTS.map(p => p.title).join(" · ")}. You can see them on the Home page.` },
+    { generic: true, words: { experience: 3, worked: 3, work: 1, job: 2, jobs: 2, internship: 3, intern: 3, amalitech: 3, career: 2, company: 2, companies: 2 },
+      reply: () => "Right now I'm a " + EXPERIENCE[0].role + " at " + EXPERIENCE[0].org + ". Before that: " + EXPERIENCE.slice(1).map(x => `${x.role} at ${x.org}`).join(", ") + ". Details are on the Toolbox page." },
+    { words: { education: 3, study: 3, studied: 3, degree: 3, university: 3, school: 2, alu: 3, gpa: 3, cgpa: 3, graduate: 3, graduated: 3 },
+      reply: () => `I graduated from ${EDUCATION[0].org} with a ${EDUCATION[0].role} (CGPA 4.30 / 5.00). Before that, I studied Mechanical Engineering at the University of Rwanda.` },
+    { words: { certification: 3, certifications: 3, certified: 3, certificate: 3, certificates: 3, scrum: 3, courses: 2 },
+      reply: () => "My certifications: AWS Certified Cloud Practitioner, Professional Scrum Master I, Protected Area Technician (WILDLABS), plus the SheCanCode and Aspire Leaders programmes." },
+    { words: { where: 1, based: 3, live: 3, location: 3, located: 3, country: 2, city: 2 },
+      reply: () => `I'm based in ${PROFILE.location}. I've also worked in Kenya, with Space for Giants and Suyian Conservancy.` },
+    { words: { remote: 4, relocate: 4, relocation: 4, available: 4, availability: 4, open: 2, opportunity: 3, opportunities: 3, freelance: 3, hiring: 2 },
+      reply: () => `I'm open to data engineering opportunities. The best way to discuss one is by email: ${PROFILE.email}.` },
+    { words: { why: 2, hire: 3, strengths: 3, strength: 3, unique: 2, stand: 2 },
+      reply: () => "I care about the parts that make data trustworthy: validation, testing, logging and clear documentation. I also bring a mix of software engineering, machine learning and real field experience in conservation and agribusiness." },
+    { words: { contact: 3, email: 3, reach: 3, linkedin: 3, github: 3, touch: 2, message: 2 },
+      reply: () => `Email me at ${PROFILE.email}, or find me on LinkedIn and GitHub. The links are at the bottom of every page.` },
+    { words: { cv: 3, resume: 3 },
+      reply: () => "You can download my CV on the About me page." },
+    { words: { languages: 2, speak: 3, french: 3, kinyarwanda: 3, english: 2 },
+      reply: () => `I speak ${PROFILE.languages.join(", ")}.` },
+    { words: { fun: 3, hobby: 3, hobbies: 3, free: 2, outside: 2, interests: 3, veginn: 3, business: 2, founder: 3, volunteer: 3, volunteering: 3, impact: 3, community: 2 },
+      reply: () => "Outside work, I co-founded VegInn, an agribusiness connecting farmers to city markets, and I volunteer at tech events and on data projects. See the Impact page!" }
   ],
-  fallback: "Good question! I don't know that one yet — try asking about skills, projects or contact."
+  fallback: () => `I'm not sure about that one yet. Try asking about my skills, projects, experience or education, or email me at ${PROFILE.email}.`
 };
 
 /*
