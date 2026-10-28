@@ -64,12 +64,12 @@ const EDUCATION = [
 const ACHIEVEMENTS = [
   { date: "Oct 2026", title: "AWS Certified Cloud Practitioner", text: "Certified in AWS cloud fundamentals: core services, security, pricing and architecture.", image: "", link: "" },
   { date: "Jun 2026", title: "Data Engineering Apprentice, AmaliTech", text: "Joined AmaliTech to build production-style data pipelines.", image: "", link: "" },
-  { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", text: "Certification in technology for protected-area and wildlife conservation work.", image: "", link: "" },
+  { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", text: "Protected Area Technician certification from WILDLABS.", image: "", link: "" },
   { date: "Dec 2025", title: "BSc Software Engineering, ALU", text: "Graduated with a Machine Learning specialisation, CGPA 4.30 / 5.00.", image: "", link: "" },
   { date: "Nov 2025", title: "TractorCare capstone", text: "Predictive maintenance app that listens to tractor engine sounds to flag problems.", image: "", link: "" },
   { date: "Nov 2024", title: "Professional Scrum Master I", text: "Scrum.org certification in agile delivery and Scrum.", image: "", link: "" },
   { date: "Jun 2024", title: "SheCanCode, Igire Rwanda", text: "Completed the SheCanCode programme for women in tech.", image: "", link: "" },
-  { date: "Mar 2023", title: "Aspire Leaders Programme", text: "Selected for the Aspire Institute leadership programme.", image: "", link: "" }
+  { date: "Mar 2023", title: "Aspire Leaders Programme", text: "Completed the Aspire Leaders Programme with Aspire Institute.", image: "", link: "" }
 ];
 
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
