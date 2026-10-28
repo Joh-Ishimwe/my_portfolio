@@ -92,6 +92,26 @@ $("skillGrid").innerHTML = Object.entries(SKILLS).map(([group, items]) => `
     <div class="tags">${items.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div>
   </div>`).join("");
 
+/* ---------- Impact: quote, story, stats ---------- */
+$("impactQuote").textContent = IMPACT.quote;
+$("impactQuoteBy").textContent = `— ${IMPACT.quoteBy}`;
+$("impactStory").innerHTML = IMPACT.story.map(p => `<p>${esc(p)}</p>`).join("");
+$("impactTagline").textContent = IMPACT.tagline;
+$("impactStats").innerHTML = IMPACT.stats.map(st => `
+  <div class="stat reveal"><strong>${esc(st.value)}</strong><span>${esc(st.label)}</span></div>`).join("");
+
+/* ---------- Impact areas ---------- */
+$("impactAreas").innerHTML = IMPACT.areas.map((a, i) => `
+  <article class="impact-area reveal">
+    <div class="impact-text">
+      <span class="mono area-num">${String(i + 1).padStart(2, "0")}</span>
+      <h3>${esc(a.title)}</h3>
+      <p>${esc(a.text)}</p>
+      <ul>${a.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
+    </div>
+    <div class="gallery-wrap" data-gallery></div>
+  </article>`).join("");
+
 /* ---------- About ---------- */
 $("aboutText").innerHTML = PROFILE.about.map(p => `<p>${esc(p)}</p>`).join("");
 const photo = $("aboutPhoto");
