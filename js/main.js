@@ -112,6 +112,27 @@ $("impactAreas").innerHTML = IMPACT.areas.map((a, i) => `
     <div class="gallery-wrap" data-gallery></div>
   </article>`).join("");
 
+/* ---------- Impact photo carousels (swipe, scroll, or use the arrow buttons) ---------- */
+document.querySelectorAll("[data-gallery]").forEach((wrap, i) => {
+  const area = IMPACT.areas[i];
+  const slides = area.images.length
+    ? area.images.map((src, n) => `<img class="slide" src="${esc(src)}" alt="${esc(area.title)} photo ${n + 1}" loading="lazy">`)
+    : [1, 2, 3].map(n => `<div class="slide slide-placeholder" style="background:${gradients[(i + n) % gradients.length]}"><span>Photo ${n} — add to assets/images/impact/</span></div>`);
+  wrap.innerHTML = `
+    <div class="gallery" tabindex="0" aria-label="${esc(area.title)} photos">${slides.join("")}</div>
+    <div class="gallery-nav">
+      <button type="button" data-dir="-1" aria-label="Previous photo">‹</button>
+      <button type="button" data-dir="1" aria-label="Next photo">›</button>
+    </div>`;
+  const gallery = wrap.querySelector(".gallery");
+  wrap.querySelector(".gallery-nav").addEventListener("click", e => {
+    const dir = Number(e.target.dataset.dir);
+    if (!dir) return;
+    const step = gallery.querySelector(".slide").offsetWidth + 12; // one slide + gap
+    gallery.scrollBy({ left: dir * step, behavior: "smooth" });
+  });
+});
+
 /* ---------- About ---------- */
 $("aboutText").innerHTML = PROFILE.about.map(p => `<p>${esc(p)}</p>`).join("");
 const photo = $("aboutPhoto");
