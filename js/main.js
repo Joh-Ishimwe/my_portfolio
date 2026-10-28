@@ -45,3 +45,23 @@ $("projectGrid").innerHTML = PROJECTS.map((p, i) => {
     </article>`;
 }).join("");
 
+/* ---------- Skills ---------- */
+$("skillGrid").innerHTML = Object.entries(SKILLS).map(([group, items]) => `
+  <div class="skill-group reveal">
+    <h3>${esc(group)}</h3>
+    <div class="tags">${items.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div>
+  </div>`).join("");
+
+/* ---------- About ---------- */
+$("aboutText").innerHTML = PROFILE.about.map(p => `<p>${esc(p)}</p>`).join("");
+const photo = $("aboutPhoto");
+photo.src = PROFILE.photo;
+// No photo yet? Swap in a gradient square with your initials.
+photo.onerror = () => {
+  const ph = document.createElement("div");
+  ph.className = "photo-fallback";
+  ph.textContent = PROFILE.name.split(" ").map(w => w[0]).join("");
+  photo.replaceWith(ph);
+};
+$("cvBtn").href = PROFILE.cv;
+
