@@ -272,7 +272,7 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; align-items: center; }
-.about img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--accent); }
+.about img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--panel); }
 .photo-fallback { aspect-ratio: 1; border-radius: var(--radius); background: var(--accent); display: grid; place-items: center; color: #fff; font-family: var(--font-display); font-size: 5rem; font-weight: 700; max-width: 300px; }
 .about p { font-size: 1.1rem; margin-bottom: 1rem; max-width: 60ch; }
 .about .btn { margin-top: .5rem; }

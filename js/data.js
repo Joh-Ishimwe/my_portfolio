@@ -10,19 +10,20 @@ const PROFILE = {
   shortName: "Joh",
   role: "Data Engineer",
   location: "Kigali, Rwanda",
-  tagline: "I build pipelines that turn messy data into something people can trust.",
+  tagline: "I build reliable, data-driven systems that help organisations make informed decisions.",
   about: [
-    "Hi, I'm Josiane — a data engineer in training at AmaliTech, growing from zero to production-grade one pipeline at a time.", // TODO: confirm
-    "I care about the boring-but-vital stuff: clean ingestion, retries that actually work, tests, logging, and data that arrives on time.",
-    "When I'm not wrangling data, I'm learning in public and documenting what I build."
+    "I'm a Software Engineering graduate from African Leadership University, specialising in Machine Learning, and a Data Engineering Apprentice at AmaliTech.",
+    "I build Python and SQL pipelines that ingest, validate and load data into PostgreSQL, with data-quality checks, tests and structured logging, so the data can be trusted.",
+    "My path has taken me through mechanical engineering, conservation data in Kenya and co-founding an agribusiness. Each one taught me the same thing: reliable data helps people make better decisions."
   ],
-  photo: "assets/images/profile.jpg",   // TODO: add your photo (square works best)
+  languages: ["Kinyarwanda (native)", "English (fluent)", "French (conversational)"],
+  photo: "assets/images/avatar.webp",   // swap for a real photo any time (square works best)
   avatar: "assets/images/avatar.webp",  // your AI cartoon twin (transparent background)
-  cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: drop your CV PDF here
-  email: "josiane.ishimwe@amalitechtraining.org",
+  cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: export your CV as PDF and save it here
+  email: "jishimwe24@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/josiane-ishimwe",
-    github: "https://github.com/",        // TODO: your GitHub URL
+    github: "https://github.com/Joh-Ishimwe",
     medium: ""                            // optional: blog / Medium / Hashnode
   }
 };
