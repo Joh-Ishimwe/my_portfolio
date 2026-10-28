@@ -21,13 +21,22 @@ onPage("heroName", () => {
    Each copy must be at least as wide as the screen, or a gap appears,
    so on wide screens we repeat the cards more times inside each copy. */
 onPage("marquee", () => {
+  // Photo on top if you added one; otherwise a calm placeholder showing the year
   const achCard = a => `
     <article class="ach">
-      <span class="mono">${esc(a.date)}</span>
-      <h3>${esc(a.title)}</h3>
-      <p>${esc(a.text)}</p>
-      ${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">Learn more →</a>` : ""}
+      <div class="ach-media" data-year="${esc(a.date)}">
+        ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy">` : ""}
+      </div>
+      <div class="ach-body">
+        <span class="mono">${esc(a.date)}</span>
+        <h3>${esc(a.title)}</h3>
+        <p>${esc(a.text)}</p>
+        ${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">Learn more →</a>` : ""}
+      </div>
     </article>`;
+  // If an image path is wrong, drop the broken image so the placeholder shows instead
+  const fixBrokenImages = () => track.querySelectorAll(".ach-media img").forEach(img =>
+    img.addEventListener("error", () => img.remove(), { once: true }));
   const marquee = $("marquee"), track = $("achTrack");
   const SPEED = 40; // pixels per second — same speed no matter how many cards
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -35,6 +44,7 @@ onPage("marquee", () => {
   function buildMarquee() {
     const set = ACHIEVEMENTS.map(achCard).join("");
     track.innerHTML = set;
+    fixBrokenImages();
     if (reduceMotion) return;                      // static list, no copies needed
     const card = track.firstElementChild;
     const cardW = card.offsetWidth + parseFloat(getComputedStyle(card).marginRight);
@@ -42,6 +52,7 @@ onPage("marquee", () => {
     const reps = Math.max(1, Math.ceil(marquee.clientWidth / setW));
     const half = set.repeat(reps);
     track.innerHTML = half + half;
+    fixBrokenImages();
     // Only the first set is "real": hide the copies from screen readers and the Tab key
     [...track.children].slice(ACHIEVEMENTS.length).forEach(el => {
       el.setAttribute("aria-hidden", "true");

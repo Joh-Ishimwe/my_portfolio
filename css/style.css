@@ -166,8 +166,17 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 @keyframes scroll { to { transform: translateX(-50%); } }
 .ach {
   width: 320px; flex-shrink: 0; margin-right: 1.2rem;
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; display: flex; flex-direction: column;
 }
+/* Photo area on top of each achievement card (16:9) */
+.ach-media { position: relative; aspect-ratio: 16 / 9; background: var(--panel); border-bottom: 1px solid var(--line); }
+.ach-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ach-media:not(:has(img))::after {      /* no photo yet → big faint year as decoration */
+  content: attr(data-year); position: absolute; inset: 0; display: grid; place-items: center;
+  font: italic 700 2.6rem var(--font-display); color: var(--line);
+}
+.ach-body { padding: 1.2rem 1.4rem 1.4rem; }
 .ach .mono { color: var(--accent-2); font-size: .8rem; }
 .ach h3 { font-family: var(--font-display); font-size: 1.15rem; margin: .4rem 0; }
 .ach p { color: var(--muted); font-size: .92rem; }
