@@ -110,8 +110,8 @@ onPage("skillGrid", () => {
 });
 
 /* ---------- Experience (Toolbox page) ---------- */
-onPage("experienceList", () => {
-  $("experienceList").innerHTML = EXPERIENCE.map(x => `
+// Same compact row layout is used for jobs and for education
+const timelineRows = list => list.map(x => `
     <li class="job reveal">
       <span class="job-dates">${esc(x.dates)}</span>
       <div>
@@ -119,7 +119,8 @@ onPage("experienceList", () => {
         <p>${esc(x.line)}${x.place ? ` <span class="muted small">— ${esc(x.place)}</span>` : ""}</p>
       </div>
     </li>`).join("");
-});
+onPage("experienceList", () => { $("experienceList").innerHTML = timelineRows(EXPERIENCE); });
+onPage("educationList", () => { $("educationList").innerHTML = timelineRows(EDUCATION); });
 
 /* ---------- Impact: quote, story, stats ---------- */
 onPage("impactQuote", () => {

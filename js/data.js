@@ -40,10 +40,22 @@ const SKILLS = {
 
 /* Where I've worked — keep it short: newest first, one line each */
 const EXPERIENCE = [
-  { role: "Data Engineering Trainee", org: "AmaliTech", place: "Kigali, Rwanda", dates: "2026 – Present",   // TODO: confirm
-    line: "Building production-style pipelines with Python, SQL, Airflow and Docker." },
-  { role: "TODO: previous role", org: "TODO: company", place: "", dates: "20XX – 20XX",                       // TODO
-    line: "One sentence on what you did and the result." }
+  { role: "Data Engineering Apprentice", org: "AmaliTech", place: "Kigali, Rwanda", dates: "Jun 2026 – Present",
+    line: "Python & SQL pipelines into PostgreSQL with data-quality checks, testing and GitHub Actions CI/CD; practising Airflow, Spark/PySpark and Kafka." },
+  { role: "Data Analyst", org: "Suyian Conservancy", place: "Rumuruti, Kenya", dates: "May 2026",
+    line: "Cleaned, validated and analysed SAPA survey data to support community engagement and protected-area management." },
+  { role: "Data & GIS Intern", org: "Space for Giants", place: "Nanyuki, Kenya", dates: "Jan – Apr 2026",
+    line: "Analysed elephant GPS-collar data in EarthRanger; built maps and dashboards with ArcGIS Online and Tableau." },
+  { role: "Co-Founder", org: "VegInn", place: "Kigali, Rwanda", dates: "Mar 2025 – Present",
+    line: "Agribusiness supplying ready-to-cook vegetable packs and connecting smallholder farmers with urban markets." }
+];
+
+/* Education — short, newest first */
+const EDUCATION = [
+  { role: "BSc (Hons) Software Engineering, Machine Learning", org: "African Leadership University", place: "Kigali, Rwanda", dates: "2023 – 2025",
+    line: "CGPA 4.30 / 5.00 · Data Engineering Foundations, Databases, Machine Learning, Systems Programming." },
+  { role: "Mechanical Engineering studies (Plant Engineering)", org: "University of Rwanda, CST", place: "Kigali, Rwanda", dates: "2020 – 2023",
+    line: "Engineering Mathematics, Thermodynamics, Fluid Mechanics, Machine Design (CAD), Heat Transfer." }
 ];
 
 /* Achievements carousel — newest first.
