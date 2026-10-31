@@ -91,7 +91,11 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
   display: block; width: 100%; max-width: 230px; max-height: 300px; object-fit: contain;
   filter: drop-shadow(0 18px 18px rgba(0,0,0,.18));
 }
-video.avatar { border-radius: 20px; background: #fff; object-fit: cover; aspect-ratio: 1 / 1; }   /* the video has a white background: show it as a framed portrait */
+/* Still portrait and video are stacked in the same framed square; the video fades in while the twin answers */
+.avatar-stack { position: relative; width: 100%; max-width: 230px; }
+.avatar-stack .avatar { width: 100%; max-width: none; max-height: none; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; border-radius: 20px; background: #fff; }
+.avatar-stack video.avatar { position: absolute; inset: 0; opacity: 0; transition: opacity .2s; }
+.avatar-stack.playing video.avatar { opacity: 1; }
 /* Text only screen readers hear */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .avatar-fallback {

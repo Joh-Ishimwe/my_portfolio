@@ -201,19 +201,24 @@ onPage("contactForm", () => {
 
 /* ---------- Chat assistant: cartoon twin + speech bubble (keyword matching, no AI) ---------- */
 onPage("chat", () => {
-  const avatarWrap = $("avatarWrap"), avatarImg = $("avatarImg");
+  const avatarWrap = $("avatarWrap"), avatarStack = $("avatarStack"), avatarStill = $("avatarStill"), avatarVideo = $("avatarVideo");
   const bubble = $("bubble"), bubbleText = $("bubbleText"), youAsked = $("youAsked");
   $("chatIntro").textContent = CHAT.intro;
 
-  // No twin image yet? Show a circle with initials instead of a broken image.
-  // The video stays paused (first frame, muted) and only plays while the twin is answering
-  avatarImg.src = PROFILE.avatarVideo;
-  const stopVideo = () => { if (avatarImg.pause) { avatarImg.pause(); avatarImg.currentTime = 0; } };
-  avatarImg.onerror = () => {
+  // Still portrait before and after answering; the muted video plays only while the twin is answering
+  avatarStill.src = PROFILE.avatar;
+  avatarVideo.src = PROFILE.avatarVideo;
+  const startVideo = () => {
+    avatarVideo.currentTime = 0;
+    avatarVideo.play().then(() => avatarStack.classList.add("playing")).catch(() => {});
+  };
+  const stopVideo = () => { avatarStack.classList.remove("playing"); avatarVideo.pause(); };
+  // No portrait yet? Show a circle with initials instead of a broken image.
+  avatarStill.onerror = () => {
     const ph = document.createElement("div");
     ph.className = "avatar avatar-fallback";
     ph.textContent = PROFILE.name.split(" ").map(w => w[0]).join("");
-    avatarImg.replaceWith(ph);
+    avatarStack.replaceWith(ph);
   };
 
   // The answers come from js/chat-engine.js (keyword scoring, typo tolerance, follow-up memory)
@@ -236,7 +241,7 @@ onPage("chat", () => {
     let i = 0;
     bubbleText.textContent = "";
     avatarWrap.classList.add("talking");
-    if (playVideo && avatarImg.play) avatarImg.play().catch(() => {});
+    if (playVideo) startVideo();
     speakTimer = setInterval(() => {
       bubbleText.textContent += (i ? " " : "") + words[i++];
       if (i >= words.length) { clearInterval(speakTimer); avatarWrap.classList.remove("talking"); stopVideo(); }
