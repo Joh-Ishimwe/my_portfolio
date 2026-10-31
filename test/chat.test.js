@@ -108,3 +108,42 @@ test("stemmer and edit distance helpers", () => {
   assert.strictEqual(distance("airflw", "airflow", 2), 1);
   assert.ok(distance("kafka", "spark", 1) > 1);
 });
+
+/* ---- CV details: roles, goals, soft skills, interests, volunteering ---- */
+ok("role: Space for Giants", "what did you do at space for giants", /GPS-collar|elephant/i, /Nanyuki/);
+ok("role: Suyian", "tell me about your time at suyian", /survey/i, /Rumuruti/);
+ok("role: current job", "tell me about amalitech", /Data Engineering Apprentice/);
+ok("role: misspelt employer", "what do you do at amalitch", /AmaliTech/);
+ok("role follow-up gives the CV details", ["tell me about amalitech", "tell me more"], /mentorship/i);
+ok("role: volunteer org", "what did you do at soma rwanda", /data entry|verified/i);
+ok("goals", "what are your long term goals", /African organisations/, /data and AI|AI solutions/i);
+ok("goals: future", "where do you see yourself in the future", /African organisations/);
+ok("soft skills", "what are your soft skills", /teamwork/i, /communication/i);
+ok("interests", "what are you interested in", /conservation/i, /agriculture/i);
+ok("volunteering", "tell me about your volunteering", /AFS Forum/, /SOMA/, /Indaba/);
+ok("driving licence", "do you have a driving licence", /Category B/);
+ok("high school", "what high school did you attend", /Karubanda/);
+ok("education more includes high school", ["where did you study", "tell me more"], /Karubanda/);
+ok("skill from the CV: React", "do you know react", /React/);
+ok("skill from the CV: Earth Engine", "do you know google earth engine", /Earth Engine/);
+ok("skill from the CV: Node", "do you use node.js", /Node/);
+
+/* ---- privacy: the public bot never reveals phone, address or references ---- */
+const PRIVATE = [/\+?250\s?78/, /KG 25/, /@spaceforgiants/, /@alueducation/, /Borges/, /Muyonga/];
+for (const q of ["what is your phone number", "where do you live exactly", "what is your home address", "can I get a reference", "who is your supervisor", "give me your whatsapp"])
+  test(`privacy: "${q}"`, () => {
+    const t = ask(q).text;
+    for (const p of PRIVATE) assert.doesNotMatch(t, p, `leaked ${p}: ${t}`);
+  });
+ok("phone question points to email", "what is your phone number", /email|form/i);
+ok("references are on request", "can I get a reference", /request/i);
+
+test("privacy: no topic reply, follow-up or role detail contains private information", () => {
+  const texts = [];
+  for (const t of data.CHAT.topics) { texts.push(t.reply()); if (t.more) texts.push(t.more()); }
+  for (const r of [...data.EXPERIENCE, ...data.VOLUNTEERING]) texts.push(r.line, ...(r.details || []));
+  for (const t of texts) for (const p of PRIVATE) assert.doesNotMatch(t, p, `private data in: ${t}`);
+});
+test("a tool name matching more words wins: google cloud is not Google Earth Engine", () => {
+  assert.match(ask("do you know google cloud").text, /Google Cloud/);
+});
