@@ -216,59 +216,9 @@ onPage("chat", () => {
     avatarImg.replaceWith(ph);
   };
 
-  /* ----- How the bot picks an answer -----
-     1. Split the question into whole lowercase words.
-     2. Score every topic: add the weight of each topic word found.
-     3. Look for tool names (Airflow, Spark…) from SKILLS / PROJECTS.
-     4. A named tool wins unless a topic scored higher than a weak hint. */
-  const words = q => (q.toLowerCase().match(/[a-z0-9+#]+/g) || []);
-  const has = (ws, k) => ws.some(w => w === k || w.replace(/s$/, "") === k);
+  // The answers come from js/chat-engine.js (keyword scoring, typo tolerance, follow-up memory)
+  const bot = ChatEngine.create({ PROFILE, SKILLS, PROJECTS, EXPERIENCE, ACHIEVEMENTS, CHAT });
 
-  // Every tool we know about, with every way it can be written ("Spark/PySpark" → spark, pyspark)
-  const TOOLS = [];
-  for (const [group, items] of Object.entries(SKILLS))
-    for (const name of items)
-      for (const alias of name.toLowerCase().split(/[\/ ]/).filter(a => a.length > 1 && !["online", "and", "apis", "rest"].includes(a)))
-        TOOLS.push({ alias, name, group });
-  // Skill group names count too ("GIS", "Cloud") → answer lists the whole group
-  for (const group of Object.keys(SKILLS))
-    if (!group.includes(" ")) TOOLS.push({ alias: group.toLowerCase(), name: group, group, isGroup: true });
-  for (const p of PROJECTS) for (const name of p.stack)
-    if (!TOOLS.some(t => t.alias === name.toLowerCase())) TOOLS.push({ alias: name.toLowerCase(), name, group: "project" });
-
-  function toolAnswer(tool, ws) {
-    // Only say "Yes!" to yes/no questions ("Do you know…", "Have you used…")
-    const yes = ["do", "have", "can", "are", "is", "did"].includes(ws[0]) ? "Yes! " : "";
-    const t = tool.name.toLowerCase();
-    const inProjects = PROJECTS.filter(p => p.stack.some(s => s.toLowerCase().includes(tool.alias))).map(p => p.title);
-    const inJobs = EXPERIENCE.filter(x => x.line.toLowerCase().includes(tool.alias)).map(x => x.org);
-    const certs = ACHIEVEMENTS.filter(a => a.title.toLowerCase().includes(tool.alias)).map(a => a.title);
-    let reply = tool.isGroup ? `${yes}My ${tool.name} toolkit: ${SKILLS[tool.group].join(", ")}.`
-      : tool.group === "project" ? `${yes}I've used ${tool.name}.`
-      : `${yes}${tool.name} is part of my ${tool.group} toolkit.`;
-    if (inJobs.length) reply += ` I use it at ${inJobs.join(" and ")}.`;
-    if (inProjects.length) reply += ` I used it in ${inProjects.join(" and ")}.`;
-    if (certs.length) reply += ` I'm also an ${certs.join(", ")}.`;
-    return reply;
-  }
-
-  function answer(question) {
-    const ws = words(question);
-    let best = null, bestScore = 0;
-    for (const topic of CHAT.topics) {
-      const score = Object.entries(topic.words).reduce((sum, [k, weight]) => sum + (has(ws, k) ? weight : 0), 0);
-      if (score > bestScore) { best = topic; bestScore = score; }
-    }
-    // A named project → describe it (ignore common words like "data" or "analysis")
-    const common = ["data", "analysis", "pipelines", "survey", "movement", "postgresql"];
-    const project = PROJECTS.find(p => p.title.toLowerCase().split(/\s+/)
-      .some(w => w.length >= 4 && !common.includes(w) && has(ws, w)));
-    const weak = !best || best.generic || bestScore < 3;   // nothing specific matched
-    if (project && weak) return `${project.title}: ${project.summary}`;
-    const tool = TOOLS.find(t => has(ws, t.alias));
-    if (tool && weak) return toolAnswer(tool, ws);
-    return best ? best.reply() : CHAT.fallback();
-  }
   // Restart a CSS animation by removing the class, forcing a reflow, then adding it back
   function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
 
@@ -299,10 +249,19 @@ onPage("chat", () => {
     youAsked.textContent = `You: ${q}`;
     bubbleText.textContent = "";
     bubble.classList.add("thinking");                // shows animated dots
-    setTimeout(() => say(answer(q)), 700);
+    setTimeout(() => {
+      const r = bot.reply(q);
+      say(r.text);
+      showSuggestions(r.suggestions);
+    }, 700);
   }
   say(CHAT.greeting, false);   // greeting on load: no video yet
-  $("chatSuggest").innerHTML = CHAT.suggestions.map(s => `<button type="button">${esc(s)}</button>`).join("");
+  // Default suggestions; when the bot is unsure it swaps in "did you mean" questions
+  const showSuggestions = list => {
+    $("chatSuggest").innerHTML = (list && list.length ? list : CHAT.suggestions)
+      .map(s => `<button type="button">${esc(s)}</button>`).join("");
+  };
+  showSuggestions();
   $("chatSuggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
   $("chatForm").addEventListener("submit", e => {
     e.preventDefault();
