@@ -196,7 +196,12 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 .ach a { display: inline-block; margin-top: .7rem; font-weight: 600; font-size: .88rem; }
 
 /* ---------- Projects ---------- */
-.projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+.projects { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 2px 14px; scrollbar-width: none; }
+.projects::-webkit-scrollbar { display: none; }
+.projects .project { flex: 0 0 360px; scroll-snap-align: start; }
+.scroll-nav { display: flex; gap: .5rem; }
+.scroll-nav button { width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.scroll-nav button:hover, .scroll-nav button:focus-visible { border-color: var(--accent); color: var(--accent); }
 .project {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   overflow: hidden; transition: transform .3s, box-shadow .3s;
@@ -312,7 +317,7 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
   .theme-toggle { margin-left: auto; }
   .nav nav { order: 3; width: 100%; margin-left: 0; gap: 1.2rem; overflow-x: auto; white-space: nowrap; padding-bottom: .2rem; }
   .page-head { padding-top: 2rem; }
-  .projects { grid-template-columns: 1fr; }
+  .projects .project { flex-basis: 80vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   .avatar-wrap, .avatar, .avatar-wrap.talking .avatar, .bubble.pop { animation: none; }

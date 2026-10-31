@@ -98,6 +98,11 @@ onPage("projectGrid", () => {
         </div>
       </article>`;
   }).join("");
+  // Arrow buttons scroll the row by one card
+  const row = $("projectGrid");
+  const step = dir => row.scrollBy({ left: dir * (row.firstElementChild.offsetWidth + 24), behavior: "smooth" });
+  $("projPrev").addEventListener("click", () => step(-1));
+  $("projNext").addEventListener("click", () => step(1));
 });
 
 /* ---------- Skills ---------- */
