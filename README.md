@@ -7,7 +7,7 @@ Personal portfolio of a data engineer in Kigali, Rwanda. Plain HTML/CSS/JS, no b
 ## Pages
 | Page | What's on it |
 |---|---|
-| `index.html` | Hero, "Ask Joh" cartoon-twin chat, achievements carousel, project highlights |
+| `index.html` | Hero, "Ask Joh" avatar chat, achievements carousel, project highlights |
 | `about.html` | Photo, short bio, Download CV |
 | `toolbox.html` | Skills, where I've worked, education |
 | `impact.html` | Quote, story, numbers, impact areas with photo carousels |
@@ -21,7 +21,7 @@ my_portfolio/
 ├── js/layout.js      # shared menu + footer for every page
 ├── js/main.js        # renders data.js into whichever page is open
 └── assets/
-    ├── images/avatar.webp          # cartoon twin (transparent background)
+    ├── images/avatar.webp          # avatar (transparent background)
     ├── images/achievements/        # optional achievement photos
     ├── images/impact/              # optional impact photos
     └── Josiane_Ishimwe_CV.pdf      # CV for the download button
