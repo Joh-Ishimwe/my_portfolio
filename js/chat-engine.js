@@ -163,7 +163,7 @@
       return reply;
     }
 
-    const projectAnswer = p => `${p.title}: ${p.summary}`;
+    const projectAnswer = p => `${p.title}: ${p.summary}${p.note ? " " + p.note : ""}`;
     const roleAnswer = r => `${r.role} at ${r.org} (${r.dates}${r.place ? ", " + r.place : ""}). ${r.line}`;
     const suggest = scored => {
       const picked = scored.filter(x => !["greeting", "thanks"].includes(x.topic.id)).slice(0, 3).map(x => x.topic);

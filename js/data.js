@@ -200,7 +200,7 @@ const CHAT = {
     { id: "education", ask: "Where did you study?", words: { education: 3, study: 3, studied: 3, degree: 3, university: 3, school: 2, alu: 3, gpa: 3, cgpa: 3, graduate: 3, graduated: 3, college: 2 },
       reply: () => {
         const cgpa = (EDUCATION[0].line.match(/CGPA [\d.]+ \/ [\d.]+/) || [""])[0];
-        return `I graduated from ${EDUCATION[0].org} with a ${EDUCATION[0].role}${cgpa ? ` (${cgpa})` : ""}. Before that, I studied ${EDUCATION[1].role.replace(/ studies.*/, "")} at ${EDUCATION[1].org}.`;
+        return `I graduated from ${EDUCATION[0].org}${EDUCATION[0].graduated ? ` in ${EDUCATION[0].graduated}` : ""} with a ${EDUCATION[0].role}${cgpa ? ` (${cgpa})` : ""}. Before that, I studied ${EDUCATION[1].role.replace(/ studies.*/, "")} at ${EDUCATION[1].org}.`;
       },
       more: () => EDUCATION.map(x => `${x.role}, ${x.org} (${x.dates}): ${x.line}`).join(" ") },
     { id: "certifications", ask: "What certifications do you have?", words: { certification: 3, certifications: 3, certified: 3, certificate: 3, certificates: 3, scrum: 3, courses: 2, aws: 2 },
