@@ -222,7 +222,7 @@ onPage("chat", () => {
   };
 
   // The answers come from js/chat-engine.js (keyword scoring, typo tolerance, follow-up memory)
-  const bot = ChatEngine.create({ PROFILE, SKILLS, PROJECTS, EXPERIENCE, ACHIEVEMENTS, CHAT });
+  const bot = ChatEngine.create({ PROFILE, SKILLS, PROJECTS, EXPERIENCE, VOLUNTEERING, ACHIEVEMENTS, CHAT });
 
   // Restart a CSS animation by removing the class, forcing a reflow, then adding it back
   function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }

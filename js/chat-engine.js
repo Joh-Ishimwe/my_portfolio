@@ -61,15 +61,16 @@
 
   function create(data) {
     const { PROFILE, SKILLS, PROJECTS, EXPERIENCE, ACHIEVEMENTS, CHAT } = data;
+    const ROLES = [...EXPERIENCE, ...(data.VOLUNTEERING || [])];   // jobs and volunteer roles the bot can talk about
     const topics = CHAT.topics;
-    const state = { topic: null, project: null };       // short-term memory for follow-ups
+    const state = { topic: null, project: null, role: null };       // short-term memory for follow-ups
 
     /* ---------- knowledge built once from the data ---------- */
     // Tools: every way a skill can be written ("Spark/PySpark" -> spark, pyspark), plus skill groups and project stacks
     const TOOLS = [];
     for (const [group, items] of Object.entries(SKILLS))
       for (const name of items)
-        for (const alias of name.toLowerCase().split(/[\/ ]/).filter(a => a.length > 1 && !["online", "and", "apis", "rest"].includes(a)))
+        for (const alias of name.toLowerCase().split(/[\/ .]/).filter(a => a.length > 1 && !["online", "and", "apis", "rest", "js"].includes(a)))
           TOOLS.push({ alias, name, group });
     for (const group of Object.keys(SKILLS))
       if (!group.includes(" ")) TOOLS.push({ alias: group.toLowerCase(), name: group, group, isGroup: true });
@@ -78,13 +79,15 @@
 
     // Project aliases are compared with spaces removed, so "tractor care" finds "tractorcare"
     const projectAliases = PROJECTS.map(p => (p.aliases || []).map(a => stem(a.replace(/\s+/g, ""))));
+    const roleAliases = ROLES.map(r => (r.aliases || []).map(a => stem(a.replace(/\s+/g, ""))));
 
     // Vocabulary the bot can correct typos towards: topic words, tool names, project aliases
     const vocab = new Map();                             // stem -> display word
     const addVocab = w => { if (w.length >= 5) vocab.set(stem(w), w); };
     topics.forEach(t => Object.keys(t.words).forEach(addVocab));
     TOOLS.forEach(t => addVocab(t.alias));
-    PROJECTS.forEach((p, i) => (p.aliases || []).forEach(a => addVocab(a.replace(/\s+/g, ""))));
+    PROJECTS.forEach(p => (p.aliases || []).forEach(a => addVocab(a.replace(/\s+/g, ""))));
+    ROLES.forEach(r => (r.aliases || []).forEach(a => addVocab(a.replace(/\s+/g, ""))));
     const known = w => vocab.has(stem(w)) || topics.some(t => stem(w) in stemmedWords(t));
 
     const stemCache = new Map();
@@ -131,7 +134,15 @@
     }
 
     const findProject = q => PROJECTS.findIndex((_, i) => projectAliases[i].some(a => q.candidates.has(a)));
-    const findTool = q => TOOLS.find(t => q.candidates.has(stem(t.alias)));
+    const findRole = q => ROLES.findIndex((_, i) => roleAliases[i].some(a => q.candidates.has(a)));
+    // The tool whose name matches the most words wins: "google cloud" beats "Google Earth Engine"
+    function findTool(q) {
+      const hits = new Map();
+      for (const t of TOOLS) if (q.candidates.has(stem(t.alias))) hits.set(t, [...hits.keys()].filter(k => k.name === t.name).length + 1);
+      let best = null, bestN = 0;
+      for (const [t, n] of hits) if (n > bestN) { best = t; bestN = n; }
+      return best;
+    }
 
     /* ---------- building answers ---------- */
     function toolAnswer(tool, q) {
@@ -153,6 +164,7 @@
     }
 
     const projectAnswer = p => `${p.title}: ${p.summary}`;
+    const roleAnswer = r => `${r.role} at ${r.org} (${r.dates}${r.place ? ", " + r.place : ""}). ${r.line}`;
     const suggest = scored => {
       const picked = scored.filter(x => !["greeting", "thanks"].includes(x.topic.id)).slice(0, 3).map(x => x.topic);
       for (const id of ["skills", "projects", "contact"]) {
@@ -182,6 +194,7 @@
             : `${state.project.title} isn't public yet. Email me at ${PROFILE.email} and I can walk you through it.`;
       }
       if (q.tokens.some(t => MORE.has(t))) {
+        if (state.role && state.role.details) return state.role.details.join(" ");
         if (state.project) return `${projectAnswer(state.project)} Stack: ${state.project.stack.join(", ")}.`;
         const t = topics.find(t => t.id === state.topic);
         if (t && t.more) return t.more();
@@ -197,26 +210,31 @@
       const strongTopic = best && best.score >= 3 && !best.topic.generic;
 
       // 1. follow-ups, unless the question clearly names something new
-      const projectIndex = findProject(q);
-      if (projectIndex < 0 && !strongTopic) {
+      const projectIndex = findProject(q), roleIndex = findRole(q);
+      if (projectIndex < 0 && roleIndex < 0 && !strongTopic) {
         const text = followUp(q);
-        if (text) return done(text, { topic: state.project ? "project" : state.topic });
+        if (text) return done(text, { topic: state.project ? "project" : state.role ? "role" : state.topic });
       }
 
       // 2. a named project or tool beats a generic topic
       const weak = !best || best.topic.generic || best.score < 3;
       if (projectIndex >= 0 && weak) {
-        state.project = PROJECTS[projectIndex]; state.topic = "project";
+        state.project = PROJECTS[projectIndex]; state.role = null; state.topic = "project";
         return done(projectAnswer(state.project), { topic: "project" });
+      }
+      if (roleIndex >= 0 && weak) {
+        state.role = ROLES[roleIndex]; state.project = null; state.topic = "role";
+        return done(roleAnswer(state.role), { topic: "role" });
       }
       const tool = findTool(q);
       if (tool && weak) { state.topic = "tool"; return done(toolAnswer(tool, q), { topic: "tool" }); }
 
       // 3. the best topic (two strong topics in one question are answered together)
       if (best && best.score >= 2) {
-        const chosen = [best, ...scored.slice(1).filter(x => x.score >= Math.max(3, best.score * 0.4))].slice(0, 2);
+        // A second topic joins only if it is strong; a generic one (skills, projects...) must be nearly as strong as the best
+        const chosen = [best, ...scored.slice(1).filter(x => x.score >= Math.max(3, best.score * (x.topic.generic ? 0.8 : 0.4)))].slice(0, 2);
         state.topic = chosen[0].topic.id;
-        state.project = null;
+        state.project = null; state.role = null;
         return done(chosen.map(x => x.topic.reply()).join(" "), { topic: chosen.map(x => x.topic.id).join("+") });
       }
 
@@ -237,7 +255,7 @@
       return { text: CHAT.fallback(), topic: null, confidence: "low", suggestions: suggest(scored) };
     }
 
-    return { reply, reset: () => { state.topic = null; state.project = null; } };
+    return { reply, reset: () => { state.topic = null; state.project = null; state.role = null; } };
   }
 
   return { create, _internal: { normalise, stem, distance } };
