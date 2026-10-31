@@ -12,7 +12,7 @@ const PAGES = [
   const current = document.body.dataset.page;
   const nav = document.getElementById("siteNav");
   if (nav) nav.innerHTML = `
-    <a class="logo" href="index.html">Joh.</a>
+    <a class="logo" href="index.html">Josiane.Ishimwe</a>
     <nav aria-label="Main">
       ${PAGES.map(p => `<a href="${p.href}"${p.id === current ? ' aria-current="page"' : ""}>${p.label}</a>`).join("")}
     </nav>`;

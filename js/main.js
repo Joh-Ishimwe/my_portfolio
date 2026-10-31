@@ -9,7 +9,7 @@ const gradients = ["var(--panel)"];
 /* ---------- Hero ---------- */
 onPage("heroName", () => {
   const [first, ...rest] = PROFILE.name.split(" ");
-  $("heroName").innerHTML = `${esc(first)}<br><span>${esc(rest.join(" "))}</span>`;
+  $("heroName").innerHTML = `${esc(first)} <span>${esc(rest.join(" "))}</span>`;
   $("heroRole").textContent = `// ${PROFILE.role} · ${PROFILE.location}`;
   $("heroTagline").textContent = PROFILE.tagline;
 });
