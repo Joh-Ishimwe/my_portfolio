@@ -84,7 +84,7 @@ onPage("projectGrid", () => {
       ? `<img class="cover" src="${esc(p.image)}" alt="${esc(p.title)} screenshot" loading="lazy">`
       : `<div class="cover generated" style="background:${gradients[i % gradients.length]}">${p.stack.slice(0, 3).map(esc).join(" · ")}</div>`;
     const links = [
-      p.repo && `<a href="${esc(p.repo)}" target="_blank" rel="noopener">Code ↗</a>`,
+      p.repo && `<a href="${esc(p.repo)}" target="_blank" rel="noopener">Learn more →</a>`,
       p.demo && `<a href="${esc(p.demo)}" target="_blank" rel="noopener">Live ↗</a>`
     ].filter(Boolean).join("");
     return `
