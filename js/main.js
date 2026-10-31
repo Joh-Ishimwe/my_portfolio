@@ -260,7 +260,7 @@ onPage("chat", () => {
       showSuggestions(r.suggestions);
     }, 700);
   }
-  say(CHAT.greeting, false);   // greeting on load: no video yet
+  say(CHAT.greeting);   // the intro plays the video too, then the still portrait returns
   // Default suggestions; when the bot is unsure it swaps in "did you mean" questions
   const showSuggestions = list => {
     $("chatSuggest").innerHTML = (list && list.length ? list : CHAT.suggestions)
