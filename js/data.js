@@ -101,7 +101,7 @@ const VOLUNTEERING = [
 
 /* Education — short, newest first */
 const EDUCATION = [
-  { role: "BSc (Hons) Software Engineering, Machine Learning", org: "African Leadership University", place: "Kigali, Rwanda", dates: "2023 – 2025",
+  { role: "BSc (Hons) Software Engineering, Machine Learning", org: "African Leadership University", place: "Kigali, Rwanda", dates: "2023 – 2025", graduated: "July 2026",
     line: "CGPA 4.30 / 5.00 · Data Engineering Foundations, Databases, Machine Learning, Systems Programming." },
   { role: "Mechanical Engineering studies (Plant Engineering)", org: "University of Rwanda, CST", place: "Kigali, Rwanda", dates: "2020 – 2023",
     line: "Engineering Mathematics, Thermodynamics, Fluid Mechanics, Machine Design (CAD), Heat Transfer." },
@@ -114,10 +114,10 @@ const EDUCATION = [
    (landscape works best; leave "" for a plain placeholder) */
 const ACHIEVEMENTS = [
   { date: "Oct 2026", title: "AWS Certified Cloud Practitioner", kind: "certification", text: "Certified in AWS cloud fundamentals: core services, security, pricing and architecture.", image: "", link: "" },
+  { date: "Jul 2026", title: "BSc Software Engineering, ALU", text: "Graduated with a Machine Learning specialisation.", image: "", link: "" },
   { date: "Jun 2026", title: "Data Engineering Apprentice, AmaliTech", text: "Joined AmaliTech to build production-style data pipelines.", image: "", link: "" },
   { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", kind: "certification", text: "Protected Area Technician certification from WILDLABS.", image: "", link: "" },
-  { date: "Dec 2025", title: "BSc Software Engineering, ALU", text: "Graduated with a Machine Learning specialisation, CGPA 4.30 / 5.00.", image: "", link: "" },
-  { date: "Nov 2025", title: "TractorCare capstone", text: "Predictive maintenance app that listens to tractor engine sounds to flag problems.", image: "", link: "" },
+  { date: "Nov 2025", title: "Defended my research project", text: "Defended TractorCare, a predictive maintenance app that listens to tractor engine sounds to flag problems.", image: "", link: "" },
   { date: "Nov 2024", title: "Professional Scrum Master I", kind: "certification", text: "Scrum.org certification in agile delivery and Scrum.", image: "", link: "" },
   { date: "Jun 2024", title: "SheCanCode, Igire Rwanda", kind: "programme", text: "Completed the SheCanCode programme for women in tech.", image: "", link: "" },
   { date: "Mar 2023", title: "Aspire Leaders Programme", kind: "programme", text: "Completed the Aspire Leaders Programme with Aspire Institute.", image: "", link: "" }
@@ -126,21 +126,22 @@ const ACHIEVEMENTS = [
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
 const PROJECTS = [
   {
+    title: "TractorCare",
+    aliases: ["tractorcare", "tractor", "engine sound", "audio", "flutter", "capstone", "research", "defence", "defense", "defended", "thesis"],
+    note: "I defended it as my research project in November 2025.",
+    summary: "Predictive maintenance system that classifies tractor engine sounds to spot problems early. MFCC audio features + TensorFlow model, FastAPI backend, MongoDB, and a Flutter app with offline sync. Tested on 50 recordings from Kayonza.",
+    stack: ["Python", "TensorFlow", "librosa", "FastAPI", "MongoDB", "Flutter"],
+    image: "",
+    repo: "https://github.com/Joh-Ishimwe/tractorcare-capstone",   // NOTE: this repo is private on GitHub, so the link shows a 404 until it is made public
+    demo: ""
+  },
+  {
     title: "Mini data platform",
     aliases: ["platform", "mini", "pipeline", "etl", "cicd"],
     summary: "A Dockerised, end-to-end data platform with CI/CD: synthetic sales data lands in MinIO, Airflow cleans and validates it, Postgres stores it and Metabase turns it into a dashboard. Bad rows are quarantined and loads are idempotent.",
     stack: ["Python", "Airflow", "PostgreSQL", "MinIO", "Metabase", "Docker", "GitHub Actions"],
     image: "",
     repo: "https://github.com/Joh-Ishimwe/DEM11_mini-data-platform",
-    demo: ""
-  },
-  {
-    title: "TractorCare",
-    aliases: ["tractorcare", "tractor", "engine sound", "audio", "flutter", "capstone"],
-    summary: "Predictive maintenance system that classifies tractor engine sounds to spot problems early. MFCC audio features + TensorFlow model, FastAPI backend, MongoDB, and a Flutter app with offline sync. Tested on 50 recordings from Kayonza.",
-    stack: ["Python", "TensorFlow", "librosa", "FastAPI", "MongoDB", "Flutter"],
-    image: "",
-    repo: "https://github.com/Joh-Ishimwe/tractorcare-capstone",   // NOTE: this repo is private on GitHub, so the link shows a 404 until it is made public
     demo: ""
   },
   {
@@ -168,7 +169,7 @@ const PROJECTS = [
 const certNames = kind => ACHIEVEMENTS.filter(a => a.kind === kind).map(a => a.title);
 const CHAT = {
   botName: "JOH-bot 2.0",
-  intro: "Chat with my portfolio assistant to learn more about me",
+  intro: "Chat with my AI assistant to learn more about me",
   greeting: "Hello! Welcome to my portfolio chatbot. How can I assist you today? Feel free to ask about my projects or experience.",
   suggestions: ["What do you do?", "Do you know Airflow?", "Your projects?", "Where did you study?", "How can I contact you?"],
   topics: [
