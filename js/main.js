@@ -183,6 +183,17 @@ onPage("aboutText", () => {
   $("cvBtn").href = PROFILE.cv;
 });
 
+/* ---------- Contact form (no server: opens the visitor's email app with the message filled in) ---------- */
+onPage("contactForm", () => {
+  $("contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const subject = `Portfolio message from ${f.get("name")}`;
+    const body = `${f.get("message")}\n\n— ${f.get("name")} (${f.get("email")})`;
+    window.location.href = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+});
+
 /* ---------- Chat assistant: cartoon twin + speech bubble (keyword matching, no AI) ---------- */
 onPage("chat", () => {
   const avatarWrap = $("avatarWrap"), avatarImg = $("avatarImg");
