@@ -66,7 +66,7 @@ ok("cv", "can I get your cv", /CV/);
 ok("multi-intent", "where did you study and where do you work", /African Leadership University/, /AmaliTech/);
 
 /* ---- conversation context ---- */
-ok("follow-up: ordinal after project list", ["what projects have you built", "tell me more about the first one"], /PostgreSQL data pipelines/);
+ok("follow-up: ordinal after project list", ["what projects have you built", "tell me more about the first one"], /Mini data platform/);
 ok("follow-up: pronoun refers to last project", ["tell me about tractorcare", "what stack did it use?"], /TensorFlow/, /FastAPI/);
 ok("follow-up: more after skills", ["what are your skills", "tell me more"], /GIS/, /Cloud/);
 ok("follow-up: more after experience", ["tell me about your work experience", "tell me more"], /Cleaned, validated/);
@@ -146,4 +146,31 @@ test("privacy: no topic reply, follow-up or role detail contains private informa
 });
 test("a tool name matching more words wins: google cloud is not Google Earth Engine", () => {
   assert.match(ask("do you know google cloud").text, /Google Cloud/);
+});
+
+/* ---- project links ---- */
+ok("project link follow-up", ["tell me about the data platform", "any link to the code?"], /github\.com\/Joh-Ishimwe\/DEM11_mini-data-platform/);
+ok("project link: can I see the code", ["tell me about the mini data platform", "can I see the code"], /github\.com/);
+test("project without a public repo says so", () => {
+  const noRepo = { ...data, PROJECTS: data.PROJECTS.map(p => ({ ...p, repo: "", demo: "" })) };
+  const bot = ChatEngine.create(noRepo);
+  bot.reply("tell me about tractorcare");
+  assert.match(bot.reply("where is the repo?").text, /isn't public/);
+});
+test("'code in python' is not mistaken for a repo question", () => {
+  const bot = ChatEngine.create(data);
+  bot.reply("tell me about tractorcare");
+  assert.doesNotMatch(bot.reply("what languages do you code in").text, /isn't public/);
+});
+
+ok("JOH EVENTS project", "tell me about joh events", /static website/i, /Sveltia/);
+ok("JOH EVENTS link", ["tell me about joh events", "link to the code"], /github\.com\/Joh-Ishimwe\/JOH_EVENTS/);
+ok("project list is numbered", "what projects have you built", /3\. JOH EVENTS website/);
+ok("ordinal: third project", ["what projects have you built", "tell me about the third one"], /JOH EVENTS/);
+ok("event volunteering is not mistaken for the website", "what did you do at indaba", /Event Operations Volunteer/);
+
+ok("elephant questions go to the Space for Giants role", "tell me about the elephant work", /Space for Giants/);
+ok("SAPA questions go to the Suyian role", "what is the SAPA survey", /Suyian/);
+test("removed projects are gone from the list", () => {
+  assert.doesNotMatch(ask("what projects have you built").text, /Elephant|SAPA/);
 });
