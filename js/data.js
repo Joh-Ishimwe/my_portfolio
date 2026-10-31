@@ -13,9 +13,9 @@ const PROFILE = {
   tagline: "I build reliable, data-driven systems that help organisations make informed decisions.",
   heroIntro: [   // the paragraphs under your name on the home page
     "I work at the intersection of data, technology, and human decision-making.",
-    "My work focuses on turning raw, often messy data into reliable systems and meaningful insights that help people and organisations understand problems, make informed decisions, and take action.",
-    "I'm particularly interested in how data and technology can address practical challenges in agriculture."
+    "I turn complex data into reliable systems and meaningful insights that help people make informed decisions."
   ],
+  heroTags: ["Data Engineering", "Analytics", "Applied AI"],   // the pills under the paragraphs
   about: [
     "I'm a Software Engineering graduate from African Leadership University, specialising in Machine Learning, and a Data Engineering Apprentice at AmaliTech.",
     "I build Python and SQL pipelines that ingest, validate and load data into PostgreSQL, with data-quality checks, tests and structured logging, so the data can be trusted.",

@@ -12,6 +12,7 @@ onPage("heroName", () => {
   $("heroName").innerHTML = `${esc(first)} <span>${esc(rest.join(" "))}</span>`;
   $("heroRole").textContent = "Hello, I'm";
   $("heroTagline").innerHTML = PROFILE.heroIntro.map(p => `<p>${esc(p)}</p>`).join("");
+  $("heroTags").innerHTML = PROFILE.heroTags.map(t => `<li>${esc(t)}</li>`).join("");
 });
 
 /* ---------- Achievements carousel ----------
