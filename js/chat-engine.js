@@ -53,7 +53,7 @@
     return prev[b.length];
   }
 
-  const ORDINALS = { first: 0, "1st": 0, one: 0, second: 1, "2nd": 1, third: 2, "3rd": 2, fourth: 3, "4th": 3, last: -1 };
+  const ORDINALS = { first: 0, "1st": 0, one: 0, second: 1, "2nd": 1, third: 2, "3rd": 2, fourth: 3, "4th": 3, fifth: 4, "5th": 4, last: -1 };
   const MORE = new Set(["more", "details", "detail", "elaborate", "expand", "further", "continue", "else"]);
   const PRONOUN = new Set(["it", "its", "that", "this", "there"]);
   const FILLER = new Set(["about", "with", "in", "how", "to", "of", "a", "an"]);
@@ -185,10 +185,12 @@
           if (state.project) return projectAnswer(state.project);
         }
       }
-      if (state.project && q.tokens.some(t => PRONOUN.has(t))) {
-        if (wants(["stack", "tech", "technology", "technologies", "tools", "tool", "built", "use", "used", "language", "languages"]))
+      if (state.project) {
+        const pointing = q.tokens.some(t => PRONOUN.has(t));
+        if (pointing && wants(["stack", "tech", "technology", "technologies", "tools", "tool", "built", "use", "used", "language", "languages"]))
           return `${state.project.title} uses ${state.project.stack.join(", ")}.`;
-        if (wants(["link", "repo", "github", "code", "demo", "live", "source"]))
+        // "any link to the code?" needs no pronoun; plain "code" needs a verb like "see" so "code in Python" is not taken for it
+        if (wants(["link", "repo", "repository", "demo", "source"]) || (wants(["code"]) && wants(["see", "view", "look", "show", "access", "get", "where"])) || (pointing && wants(["github", "live"])))
           return state.project.repo || state.project.demo
             ? [state.project.repo && `Code: ${state.project.repo}`, state.project.demo && `Demo: ${state.project.demo}`].filter(Boolean).join(" ")
             : `${state.project.title} isn't public yet. Email me at ${PROFILE.email} and I can walk you through it.`;
