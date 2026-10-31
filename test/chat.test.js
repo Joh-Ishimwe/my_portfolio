@@ -66,7 +66,8 @@ ok("cv", "can I get your cv", /CV/);
 ok("multi-intent", "where did you study and where do you work", /African Leadership University/, /AmaliTech/);
 
 /* ---- conversation context ---- */
-ok("follow-up: ordinal after project list", ["what projects have you built", "tell me more about the first one"], /Mini data platform/);
+ok("follow-up: ordinal after project list", ["what projects have you built", "tell me more about the first one"], /TractorCare/);
+ok("project list starts with TractorCare", "what projects have you built", /1\. TractorCare/);
 ok("follow-up: pronoun refers to last project", ["tell me about tractorcare", "what stack did it use?"], /TensorFlow/, /FastAPI/);
 ok("follow-up: more after skills", ["what are your skills", "tell me more"], /GIS/, /Cloud/);
 ok("follow-up: more after experience", ["tell me about your work experience", "tell me more"], /Cleaned, validated/);
@@ -174,3 +175,14 @@ ok("SAPA questions go to the Suyian role", "what is the SAPA survey", /Suyian/);
 test("removed projects are gone from the list", () => {
   assert.doesNotMatch(ask("what projects have you built").text, /Elephant|SAPA/);
 });
+
+ok("graduation date", "when did you graduate", /July 2026/);
+test("achievements stay newest first", () => {
+  const months = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+  const key = d => { const [m, y] = d.split(" "); return +y * 12 + months[m]; };
+  const keys = Array.from(data.ACHIEVEMENTS, a => key(a.date));   // Array.from: data comes from a vm context
+  assert.deepStrictEqual(keys, [...keys].sort((a, b) => b - a));
+});
+
+ok("research project defence", "when did you defend your research project", /TractorCare/, /November 2025/);
+ok("capstone question", "tell me about your capstone", /November 2025/);
