@@ -10,8 +10,8 @@ const gradients = ["var(--panel)"];
 onPage("heroName", () => {
   const [first, ...rest] = PROFILE.name.split(" ");
   $("heroName").innerHTML = `${esc(first)} <span>${esc(rest.join(" "))}</span>`;
-  $("heroRole").textContent = `// ${PROFILE.role} · ${PROFILE.location}`;
-  $("heroTagline").textContent = PROFILE.tagline;
+  $("heroRole").textContent = "Hello, I'm";
+  $("heroTagline").innerHTML = PROFILE.heroIntro.map(p => `<p>${esc(p)}</p>`).join("");
 });
 
 /* ---------- Achievements carousel ----------
