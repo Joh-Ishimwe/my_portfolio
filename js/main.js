@@ -206,7 +206,9 @@ onPage("chat", () => {
   $("chatIntro").textContent = CHAT.intro;
 
   // No twin image yet? Show a circle with initials instead of a broken image.
-  avatarImg.src = PROFILE.avatar;
+  // The video stays paused (first frame, muted) and only plays while the twin is answering
+  avatarImg.src = PROFILE.avatarVideo;
+  const stopVideo = () => { if (avatarImg.pause) { avatarImg.pause(); avatarImg.currentTime = 0; } };
   avatarImg.onerror = () => {
     const ph = document.createElement("div");
     ph.className = "avatar avatar-fallback";
@@ -274,7 +276,7 @@ onPage("chat", () => {
      Screen readers get the full answer at once (word-by-word would be noisy). */
   const reduceMotionChat = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let speakTimer;
-  function say(text) {
+  function say(text, playVideo = true) {
     clearInterval(speakTimer);
     bubble.classList.remove("thinking");
     replay(bubble, "pop");
@@ -284,28 +286,13 @@ onPage("chat", () => {
     let i = 0;
     bubbleText.textContent = "";
     avatarWrap.classList.add("talking");
+    if (playVideo && avatarImg.play) avatarImg.play().catch(() => {});
     speakTimer = setInterval(() => {
       bubbleText.textContent += (i ? " " : "") + words[i++];
-      if (i >= words.length) { clearInterval(speakTimer); avatarWrap.classList.remove("talking"); }
+      if (i >= words.length) { clearInterval(speakTimer); avatarWrap.classList.remove("talking"); stopVideo(); }
     }, 70);   // ~14 words per second feels like quick speech
   }
 
-  /* Looking: the twin turns slightly toward the mouse pointer (desktop only) */
-  const tilt = $("avatarTilt");
-  if (!reduceMotionChat && window.matchMedia("(pointer: fine)").matches) {
-    let frame;
-    window.addEventListener("pointermove", e => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const r = tilt.getBoundingClientRect();
-        // -1 … 1: where the pointer is compared with the avatar's centre
-        const dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / 600));
-        const dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / 600));
-        tilt.style.transform = `perspective(700px) rotateY(${dx * 10}deg) rotateX(${-dy * 6}deg) translateX(${dx * 6}px)`;
-      });
-    });
-    document.addEventListener("pointerleave", () => { tilt.style.transform = ""; });
-  }
   function ask(q) {
     q = q.trim();
     if (!q) return;
@@ -314,7 +301,7 @@ onPage("chat", () => {
     bubble.classList.add("thinking");                // shows animated dots
     setTimeout(() => say(answer(q)), 700);
   }
-  say(CHAT.greeting);
+  say(CHAT.greeting, false);   // greeting on load: no video yet
   $("chatSuggest").innerHTML = CHAT.suggestions.map(s => `<button type="button">${esc(s)}</button>`).join("");
   $("chatSuggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
   $("chatForm").addEventListener("submit", e => {

@@ -18,7 +18,8 @@ const PROFILE = {
   ],
   languages: ["Kinyarwanda (native)", "English (fluent)", "French (conversational)"],
   photo: "assets/images/avatar.webp",   // swap for a real photo any time (square works best)
-  avatar: "assets/images/avatar.webp",  // your AI cartoon twin (transparent background)
+  avatar: "assets/images/avatar.webp",  // still image: shown until the video loads, or if it can't play
+  avatarVideo: "assets/avatar.mp4",     // looping video of your cartoon twin
   cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: export your CV as PDF and save it here
   email: "jishimwe24@gmail.com",
   links: {
