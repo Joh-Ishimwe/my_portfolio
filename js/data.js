@@ -60,7 +60,7 @@ const EXPERIENCE = [
     ] },
   { role: "Data Analyst", org: "Suyian Conservancy", place: "Rumuruti, Kenya", dates: "May 2026",
     line: "Cleaned, validated and analysed SAPA survey data to support community engagement and protected-area management.",
-    aliases: ["suyian", "conservancy"],
+    aliases: ["suyian", "conservancy", "sapa", "survey"],
     details: [
       "I contributed to SAPA survey design, data structuring and validation.",
       "I ran exploratory analysis and built charts and summaries in Excel to share findings clearly with stakeholders.",
@@ -68,7 +68,7 @@ const EXPERIENCE = [
     ] },
   { role: "Data & GIS Intern", org: "Space for Giants", place: "Nanyuki, Kenya", dates: "Jan – Apr 2026",
     line: "Analysed elephant GPS-collar data in EarthRanger; built maps and dashboards with ArcGIS Online and Tableau.",
-    aliases: ["giants", "nanyuki"],
+    aliases: ["giants", "nanyuki", "elephant", "collar", "gps"],
     details: [
       "I cleaned, managed and integrated spatial and non-spatial datasets to support conservation monitoring and evidence-based decisions.",
       "I analysed GPS-collar data to study elephant movements and produced maps, dashboards and visualisations with ArcGIS, Tableau, EarthRanger and related geospatial tools.",
@@ -126,12 +126,12 @@ const ACHIEVEMENTS = [
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
 const PROJECTS = [
   {
-    title: "PostgreSQL data pipelines",
-    aliases: ["pipeline", "etl", "postgres", "postgresql"],
-    summary: "Python and SQL pipelines that ingest, transform, validate and load data into PostgreSQL, with schema checks, row-level rules, structured logging and CI tests. Built during my AmaliTech apprenticeship.",
-    stack: ["Python", "SQL", "PostgreSQL", "Airflow", "GitHub Actions"],
+    title: "Mini data platform",
+    aliases: ["platform", "mini", "pipeline", "etl", "cicd"],
+    summary: "A Dockerised, end-to-end data platform with CI/CD: synthetic sales data lands in MinIO, Airflow cleans and validates it, Postgres stores it and Metabase turns it into a dashboard. Bad rows are quarantined and loads are idempotent.",
+    stack: ["Python", "Airflow", "PostgreSQL", "MinIO", "Metabase", "Docker", "GitHub Actions"],
     image: "",
-    repo: "",   // TODO: link a public repo if you have one
+    repo: "https://github.com/Joh-Ishimwe/DEM11_mini-data-platform",
     demo: ""
   },
   {
@@ -140,25 +140,16 @@ const PROJECTS = [
     summary: "Predictive maintenance system that classifies tractor engine sounds to spot problems early. MFCC audio features + TensorFlow model, FastAPI backend, MongoDB, and a Flutter app with offline sync. Tested on 50 recordings from Kayonza.",
     stack: ["Python", "TensorFlow", "librosa", "FastAPI", "MongoDB", "Flutter"],
     image: "",
-    repo: "",   // TODO
+    repo: "https://github.com/Joh-Ishimwe/tractorcare-capstone",   // NOTE: this repo is private on GitHub, so the link shows a 404 until it is made public
     demo: ""
   },
   {
-    title: "Elephant movement analysis",
-    aliases: ["elephant", "earthranger", "gps", "collar"],
-    summary: "Cleaned conservation datasets and analysed GPS-collar data to understand elephant movement, then shared it through maps, dashboards and reports for Space for Giants.",
-    stack: ["EarthRanger", "ArcGIS Online", "Tableau"],
+    title: "JOH EVENTS website",
+    aliases: ["johevents", "joh"],
+    summary: "A static website for an events business, in plain HTML, CSS and JavaScript with no server code. Pages fill themselves from JSON content that the owner edits in an admin panel (Sveltia CMS), with a Formspree contact form and SEO tags.",
+    stack: ["HTML", "CSS", "JavaScript", "Sveltia CMS", "Formspree"],
     image: "",
-    repo: "",
-    demo: ""
-  },
-  {
-    title: "SAPA survey analysis",
-    aliases: ["sapa", "survey"],
-    summary: "Prepared, cleaned and validated Social Assessment for Protected Areas survey data, then produced analyses and visuals to support Suyian Conservancy's community work.",
-    stack: ["Data cleaning", "Validation", "Exploratory analysis"],
-    image: "",
-    repo: "",
+    repo: "https://github.com/Joh-Ishimwe/JOH_EVENTS",
     demo: ""
   }
 ];
