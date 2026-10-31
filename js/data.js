@@ -17,6 +17,10 @@ const PROFILE = {
     "My path has taken me through mechanical engineering, conservation data in Kenya and co-founding an agribusiness. Each one taught me the same thing: reliable data helps people make better decisions."
   ],
   languages: ["Kinyarwanda (native)", "English (fluent)", "French (conversational)"],
+  goal: "My long-term goal is to build scalable data and AI solutions that help African organisations turn complex data into actionable insights, especially in conservation and agriculture.",
+  interests: ["Data & AI", "Entrepreneurship", "Conservation & agriculture"],
+  softSkills: ["Teamwork & collaboration", "Attention to detail & analytical problem-solving", "Effective communication and project coordination"],
+  licence: "Valid Rwandan driving licence (Category B)",
   photo: "assets/images/avatar.webp",   // swap for a real photo any time (square works best)
   avatar: "assets/images/avatar-idle.webp",  // still image: shown before and after the twin answers
   avatarVideo: "assets/avatar.mp4",          // muted video: plays only while the twin is answering
@@ -30,25 +34,64 @@ const PROFILE = {
 };
 
 const SKILLS = {
-  "Programming": ["Python", "SQL", "JavaScript", "Dart", "HTML", "CSS"],
+  "Programming": ["Python", "SQL", "JavaScript", "Node.js", "React", "Dart", "HTML", "CSS"],
   "Data Engineering": ["ETL/ELT", "Data modelling", "Data validation", "Airflow", "Spark/PySpark", "Kafka"],
   "Databases & Storage": ["PostgreSQL", "MySQL", "MongoDB", "MinIO"],
   "ML & Analytics": ["Pandas", "NumPy", "scikit-learn", "TensorFlow/TFLite", "Tableau", "Power BI", "Excel"],
   "Software & Tools": ["FastAPI", "REST APIs", "Docker", "Git", "GitHub Actions", "Metabase"],
-  "GIS": ["ArcGIS Online", "Survey123", "EarthRanger"],
+  "GIS": ["ArcGIS Online", "Survey123", "EarthRanger", "Google Earth Engine"],
   "Cloud": ["AWS", "Google Cloud"]
 };
 
 /* Where I've worked — keep it short: newest first, one line each */
 const EXPERIENCE = [
   { role: "Data Engineering Apprentice", org: "AmaliTech", place: "Kigali, Rwanda", dates: "Jun 2026 – Present",
-    line: "Python & SQL pipelines into PostgreSQL with data-quality checks, testing and GitHub Actions CI/CD; practising Airflow, Spark/PySpark and Kafka." },
+    line: "Python & SQL pipelines into PostgreSQL with data-quality checks, testing and GitHub Actions CI/CD; practising Airflow, Spark/PySpark and Kafka.",
+    aliases: ["amalitech"],
+    details: [
+      "I'm building practical data engineering skills through structured upskill training, mentorship and projects.",
+      "I work with data engineering concepts and tools for data processing, transformation, storage and reliable data workflows.",
+      "I apply software engineering and analytical problem-solving to build a foundation for scalable data solutions."
+    ] },
   { role: "Data Analyst", org: "Suyian Conservancy", place: "Rumuruti, Kenya", dates: "May 2026",
-    line: "Cleaned, validated and analysed SAPA survey data to support community engagement and protected-area management." },
+    line: "Cleaned, validated and analysed SAPA survey data to support community engagement and protected-area management.",
+    aliases: ["suyian", "conservancy"],
+    details: [
+      "I contributed to SAPA survey design, data structuring and validation.",
+      "I ran exploratory analysis and built charts and summaries in Excel to share findings clearly with stakeholders.",
+      "I improved validation and organisation processes so the survey data was more consistent and reliable for decisions."
+    ] },
   { role: "Data & GIS Intern", org: "Space for Giants", place: "Nanyuki, Kenya", dates: "Jan – Apr 2026",
-    line: "Analysed elephant GPS-collar data in EarthRanger; built maps and dashboards with ArcGIS Online and Tableau." },
+    line: "Analysed elephant GPS-collar data in EarthRanger; built maps and dashboards with ArcGIS Online and Tableau.",
+    aliases: ["giants", "nanyuki"],
+    details: [
+      "I cleaned, managed and integrated spatial and non-spatial datasets to support conservation monitoring and evidence-based decisions.",
+      "I analysed GPS-collar data to study elephant movements and produced maps, dashboards and visualisations with ArcGIS, Tableau, EarthRanger and related geospatial tools.",
+      "I supported ArcGIS Online digitisation, data workflows and monthly reporting, turning complex conservation data into practical insights for programme teams."
+    ] },
   { role: "Co-Founder", org: "VegInn", place: "Kigali, Rwanda", dates: "Mar 2025 – Present",
-    line: "Agribusiness supplying ready-to-cook vegetable packs and connecting smallholder farmers with urban markets." }
+    line: "Agribusiness supplying ready-to-cook vegetable packs and connecting smallholder farmers with urban markets.",
+    aliases: ["veginn"] }
+];
+
+/* Volunteering — used by the chatbot (the Impact page has its own text in IMPACT below) */
+const VOLUNTEERING = [
+  { role: "Data Collector Volunteer", org: "AFS Forum 2024", place: "Kigali, Rwanda", dates: "Sep 2024", aliases: ["afs"],
+    line: "Supported the monitoring and evaluation team in collecting and validating participant and session data.",
+    details: [
+      "I supported the monitoring and evaluation team in collecting and validating participant and session data.",
+      "I recorded participant commitments and aligned them with session outcomes for monitoring.",
+      "I checked that recorded attendance matched real session engagement."
+    ] },
+  { role: "Data Entry Volunteer", org: "SOMA Rwanda", place: "Kigali, Rwanda", dates: "Apr 2025", aliases: ["soma"],
+    line: "Data entry and dataset verification for evaluation teams, keeping records accurate and complete.",
+    details: [
+      "I supported data entry, keeping datasets accurate and complete.",
+      "I processed and verified datasets for evaluation teams.",
+      "I kept structured records for reporting and analysis."
+    ] },
+  { role: "Event Operations Volunteer", org: "Deep Learning Indaba", place: "Kigali, Rwanda", dates: "Aug 2025", aliases: ["indaba"],
+    line: "Supported event setup, logistics and delegate coordination." }
 ];
 
 /* Education — short, newest first */
@@ -56,7 +99,9 @@ const EDUCATION = [
   { role: "BSc (Hons) Software Engineering, Machine Learning", org: "African Leadership University", place: "Kigali, Rwanda", dates: "2023 – 2025",
     line: "CGPA 4.30 / 5.00 · Data Engineering Foundations, Databases, Machine Learning, Systems Programming." },
   { role: "Mechanical Engineering studies (Plant Engineering)", org: "University of Rwanda, CST", place: "Kigali, Rwanda", dates: "2020 – 2023",
-    line: "Engineering Mathematics, Thermodynamics, Fluid Mechanics, Machine Design (CAD), Heat Transfer." }
+    line: "Engineering Mathematics, Thermodynamics, Fluid Mechanics, Machine Design (CAD), Heat Transfer." },
+  { role: "High School Diploma (Mathematics, Physics & Geography)", org: "Ecole Notre Dame de la Providence de Karubanda", place: "Huye, Rwanda", dates: "2017 – 2019",
+    line: "Mathematics, Physics and Geography combination." }
 ];
 
 /* Achievements carousel — newest first.
