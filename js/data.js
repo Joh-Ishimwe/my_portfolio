@@ -17,9 +17,10 @@ const PROFILE = {
   ],
   heroTags: ["Data Engineering", "Analytics", "Applied AI"],   // the pills under the paragraphs
   about: [
-    "I'm a Software Engineering graduate from African Leadership University, specialising in Machine Learning, and a Data Engineering Apprentice at AmaliTech.",
-    "I build Python and SQL pipelines that ingest, validate and load data into PostgreSQL, with data-quality checks, tests and structured logging, so the data can be trusted.",
-    "My path has taken me through mechanical engineering, conservation data in Kenya and co-founding an agribusiness. Each one taught me the same thing: reliable data helps people make better decisions."
+    "I'm Josiane Ishimwe, a Software Engineering graduate from African Leadership University, specialising in Machine Learning, and currently a Data Engineering Apprentice at AmaliTech.",
+    "I work with data and technology to make information more reliable, useful, and actionable. My work involves building pipelines, validating datasets, implementing data-quality checks, and structuring information so that organisations can make decisions based on evidence rather than assumptions.",
+    "My journey has taken me across different fields, from an early path in mechanical engineering to conservation data work in Kenya and co-founding an agribusiness. These experiences shaped how I see technology: not as an end in itself, but as a tool for understanding problems and solving them in practical ways.",
+    "I'm particularly interested in applying data and technology to challenges in agriculture and business operations."
   ],
   languages: ["Kinyarwanda (native)", "English (fluent)", "French (conversational)"],
   goal: "My long-term goal is to build scalable data and AI solutions that help African organisations turn complex data into actionable insights, especially in conservation and agriculture.",
@@ -179,7 +180,7 @@ const CHAT = {
       reply: () => "You're welcome! Anything else you'd like to know?" },
     { id: "about", ask: "Who are you?", words: { who: 2, yourself: 3, introduce: 3, about: 1, background: 2, summary: 2, role: 2, currently: 2, position: 2 },
       phrases: { "what do you do": 4, "who are you": 4, "what are you": 3, "what is your job": 3 },
-      reply: () => `I'm ${PROFILE.name}, a ${PROFILE.role} in ${PROFILE.location}. ${PROFILE.about[0]}` },
+      reply: () => `${PROFILE.about[0]} I'm based in ${PROFILE.location}.` },
     { id: "skills", ask: "What are your skills?", generic: true,
       words: { skill: 3, stack: 3, tools: 2, tool: 2, technologies: 3, tech: 2, programming: 3, good: 1, strongest: 2, code: 1, coding: 2, software: 1 },
       phrases: { "programming language": 4, "code in": 3, "tech stack": 4, "what tools": 3, "technical skill": 4, "what can you do": 3 },
