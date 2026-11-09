@@ -180,7 +180,25 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 .ach .mono { color: var(--accent-2); font-size: .75rem; }
 .ach h3 { font-family: var(--font-display); font-size: 1rem; line-height: 1.25; margin: .15rem 0; }
 .ach p { color: var(--muted); font-size: .85rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.ach a { display: inline-block; margin-top: .7rem; font-weight: 600; font-size: .88rem; }
+.ach a, .ach-open { display: inline-block; margin: .7rem .9rem 0 0; font-weight: 600; font-size: .88rem; }
+.ach-open { background: none; border: 0; padding: 0; color: var(--accent); font-family: var(--font-body); cursor: pointer; }
+.ach-open:hover, .ach-open:focus-visible { text-decoration: underline; }
+/* Filter tabs above the carousel */
+.ach-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.ach-filters button { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: .35rem .9rem; font: 500 .85rem var(--font-body); cursor: pointer; }
+.ach-filters button:hover, .ach-filters button:focus-visible { border-color: var(--accent); color: var(--accent); }
+.ach-filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.marquee-track.static { animation: none; width: auto; flex-wrap: wrap; row-gap: 1.2rem; }
+/* Full-size viewer for photos and certificates */
+.ach-dialog { border: 0; border-radius: var(--radius); padding: 1rem; max-width: min(92vw, 900px); background: var(--surface); color: var(--ink); text-align: center; }
+.ach-dialog::backdrop { background: rgba(0,0,0,.7); }
+.ach-dialog img { display: block; max-width: 100%; max-height: 72vh; margin: 0 auto; border-radius: 6px; }
+.ach-caption { margin: .7rem 0 .3rem; font-weight: 600; }
+.ach-nav[hidden] { display: none; }
+.ach-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; color: var(--muted); }
+.ach-nav button, .ach-close { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; width: 2.2rem; height: 2.2rem; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.ach-nav button:hover, .ach-close:hover, .ach-nav button:focus-visible, .ach-close:focus-visible { border-color: var(--accent); color: var(--accent); }
+.ach-close { position: absolute; top: .6rem; right: .6rem; z-index: 1; }
 
 /* ---------- Projects ---------- */
 /* White band that runs the full width of the page */

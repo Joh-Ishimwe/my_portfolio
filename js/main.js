@@ -21,16 +21,23 @@ onPage("heroName", () => {
    Each copy must be at least as wide as the screen, or a gap appears,
    so on wide screens we repeat the cards more times inside each copy. */
 onPage("marquee", () => {
+  const KINDS = [["all", "All"], ["certification", "Certifications"], ["programme", "Programmes"], ["event", "Events"], ["milestone", "Milestones"]];
+  let items = ACHIEVEMENTS;                         // what the carousel shows right now (changes with the filter tabs)
+  // Everything a card can open: main photo, extra photos, then the certificate
+  const galleryOf = a => [...new Set([a.image, ...(a.images || []), a.cert].filter(Boolean))];   // no repeats if the card photo is the certificate
+  const thumb = p => p.replace("achievements/", "achievements/thumbs/");   // small copy for the card; the viewer opens the full size
+  const openLabel = a => a.cert ? "View certificate" : galleryOf(a).length > 1 ? "View photos" : "";
   // Photo on top if you added one; otherwise a calm placeholder showing the year
-  const achCard = a => `
+  const achCard = (a, i) => `
     <article class="ach">
       <div class="ach-media" data-year="${esc(a.date)}">
-        ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy">` : ""}
+        ${a.image ? `<img src="${esc(thumb(a.image))}" alt="${esc(a.alt || a.title)}" decoding="async" style="object-position:${esc(a.focus || "50% 50%")}">` : ""}
       </div>
       <div class="ach-body">
         <span class="mono">${esc(a.date)}</span>
         <h3>${esc(a.title)}</h3>
         <p>${esc(a.text)}</p>
+        ${openLabel(a) ? `<button type="button" class="ach-open" data-i="${i}">${openLabel(a)} →</button>` : ""}
         ${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">Learn more →</a>` : ""}
       </div>
     </article>`;
@@ -42,25 +49,74 @@ onPage("marquee", () => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function buildMarquee() {
-    const set = ACHIEVEMENTS.map(achCard).join("");
+    const set = items.map(achCard).join("");
     track.innerHTML = set;
     fixBrokenImages();
-    if (reduceMotion) return;                      // static list, no copies needed
+    track.style.animationDuration = "";
+    if (reduceMotion || items.length < 4) { track.classList.add("static"); return; }   // few cards: no endless loop
+    track.classList.remove("static");
     const card = track.firstElementChild;
     const cardW = card.offsetWidth + parseFloat(getComputedStyle(card).marginRight);
-    const setW = cardW * ACHIEVEMENTS.length;
+    const setW = cardW * items.length;
     const reps = Math.max(1, Math.ceil(marquee.clientWidth / setW));
     const half = set.repeat(reps);
     track.innerHTML = half + half;
     fixBrokenImages();
     // Only the first set is "real": hide the copies from screen readers and the Tab key
-    [...track.children].slice(ACHIEVEMENTS.length).forEach(el => {
+    [...track.children].slice(items.length).forEach(el => {
       el.setAttribute("aria-hidden", "true");
       el.inert = true;
     });
     track.style.animationDuration = `${(setW * reps) / SPEED}s`;
   }
+
+  // Filter tabs (All / Certifications / Programmes / Events / Milestones)
+  const filters = $("achFilters");
+  filters.innerHTML = KINDS.map(([k, label], n) =>
+    `<button type="button" data-kind="${k}" aria-pressed="${n === 0}">${label}</button>`).join("");
+  filters.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-kind]");
+    if (!btn) return;
+    const k = btn.dataset.kind;
+    items = k === "all" ? ACHIEVEMENTS : ACHIEVEMENTS.filter(a => a.kind === k);
+    filters.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+    buildMarquee();
+  });
   buildMarquee();
+
+  // Viewer: opens a card's photos and certificate full size, with Prev/Next
+  const dlg = document.createElement("dialog");
+  dlg.className = "ach-dialog";
+  dlg.innerHTML = `<button type="button" class="ach-close" aria-label="Close">×</button>
+    <img alt=""><p class="ach-caption"></p>
+    <div class="ach-nav"><button type="button" data-step="-1" aria-label="Previous">‹</button><span></span><button type="button" data-step="1" aria-label="Next">›</button></div>`;
+  document.body.appendChild(dlg);
+  const dImg = dlg.querySelector("img"), dCap = dlg.querySelector(".ach-caption"), dCount = dlg.querySelector(".ach-nav span");
+  let shots = [], at = 0, open = null;
+  const show = () => {
+    dImg.src = shots[at];
+    dImg.alt = at === 0 && open.alt ? open.alt : open.title;
+    dCap.textContent = at === shots.length - 1 && open.cert ? open.title : (open.caption || open.title);   // the certificate keeps the plain title
+    dCount.textContent = shots.length > 1 ? `${at + 1} / ${shots.length}` : "";
+    dlg.querySelector(".ach-nav").hidden = shots.length < 2;
+  };
+  track.addEventListener("click", e => {
+    const btn = e.target.closest(".ach-open");
+    if (!btn) return;
+    open = items[+btn.dataset.i]; shots = galleryOf(open); at = 0;
+    show(); dlg.showModal();
+  });
+  dlg.addEventListener("click", e => {                    // × button, or a click on the dark backdrop
+    if (e.target === dlg || e.target.closest(".ach-close")) dlg.close();
+    const step = e.target.closest("[data-step]");
+    if (step) { at = (at + +step.dataset.step + shots.length) % shots.length; show(); }
+  });
+  dlg.addEventListener("keydown", e => {
+    if (shots.length > 1 && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+      at = (at + (e.key === "ArrowRight" ? 1 : -1) + shots.length) % shots.length; show();
+    }
+  });
+
   // Pause/Play button — works for mouse, keyboard and touch users
   const marqueeToggle = $("marqueeToggle");
   marqueeToggle.addEventListener("click", () => {
