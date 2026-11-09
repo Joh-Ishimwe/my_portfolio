@@ -159,6 +159,28 @@ onPage("projectGrid", () => {
   const step = dir => row.scrollBy({ left: dir * (row.firstElementChild.offsetWidth + 24), behavior: "smooth" });
   $("projPrev").addEventListener("click", () => step(-1));
   $("projNext").addEventListener("click", () => step(1));
+
+  // Auto-advance: slide to the next card, rest a few seconds, repeat; wraps to the first card after the last.
+  // Stops while the visitor hovers, focuses or touches the row, while the section is off screen or the tab is
+  // hidden, and never starts for people who asked their system for reduced motion.
+  const HOLD_MS = 4000;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let timer = null, onScreen = false, engaged = false;
+  const canScroll = () => row.scrollWidth > row.clientWidth + 4;
+  const atEnd = () => row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+  const advance = () => atEnd() ? row.scrollTo({ left: 0, behavior: "smooth" }) : step(1);
+  const stop = () => { clearInterval(timer); timer = null; };
+  const sync = () => {
+    stop();
+    if (!reduced && onScreen && !engaged && !document.hidden && canScroll()) timer = setInterval(advance, HOLD_MS);
+  };
+  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.3 }).observe(row);
+  for (const [on, off] of [["mouseenter", "mouseleave"], ["focusin", "focusout"], ["touchstart", "touchend"]]) {
+    row.addEventListener(on, () => { engaged = true; sync(); });
+    row.addEventListener(off, () => { engaged = false; sync(); });
+  }
+  for (const id of ["projPrev", "projNext"]) $(id).addEventListener("click", sync);   // restart the wait after a manual click
+  document.addEventListener("visibilitychange", sync);
 });
 
 /* ---------- Skills ---------- */
