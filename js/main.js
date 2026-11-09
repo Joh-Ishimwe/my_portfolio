@@ -141,7 +141,7 @@ onPage("projectGrid", () => {
       : `<div class="cover generated" style="background:${gradients[i % gradients.length]}">${p.label ? esc(p.label) : p.stack.slice(0, 3).map(esc).join(" · ")}</div>`;
     const links = [
       p.repo && `<a href="${esc(p.repo)}" target="_blank" rel="noopener">Learn more →</a>`,
-      p.demo && `<a href="${esc(p.demo)}" target="_blank" rel="noopener">Live ↗</a>`
+      p.demo && `<a href="${esc(p.demo)}" target="_blank" rel="noopener">${p.repo ? "Live ↗" : "Learn more →"}</a>`
     ].filter(Boolean).join("");
     return `
       <article class="project reveal">

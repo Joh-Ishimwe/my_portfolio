@@ -179,6 +179,16 @@ const PROJECTS = [
     demo: ""
   },
   {
+    title: "VegInn",
+    aliases: ["veginn", "agribusiness", "farmers", "vegetable"],
+    summary: "An agribusiness I co-founded in Kigali that supplies ready-to-cook vegetable packs and connects smallholder farmers with urban households and supermarkets, while helping farmers improve harvesting and cut post-harvest waste.",
+    stack: ["Agribusiness", "Food systems", "Co-founder"],
+    image: "assets/images/veginn.webp",
+    repo: "",
+    demo: "https://veginn.rw"
+  }
+,
+  {
     title: "Mini data platform",
     aliases: ["platform", "mini", "pipeline", "etl", "cicd"],
     summary: "A Dockerised, end-to-end data platform with CI/CD: synthetic sales data lands in MinIO, Airflow cleans and validates it, Postgres stores it and Metabase turns it into a dashboard. Bad rows are quarantined and loads are idempotent.",

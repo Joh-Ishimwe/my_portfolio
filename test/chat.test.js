@@ -171,8 +171,8 @@ test("'code in python' is not mistaken for a repo question", () => {
 
 ok("JOH EVENTS project", "tell me about joh events", /static website/i, /Sveltia/);
 ok("JOH EVENTS link", ["tell me about joh events", "link to the code"], /github\.com\/Joh-Ishimwe\/JOH_EVENTS/);
-ok("project list is numbered", "what projects have you built", /3\. JOH EVENTS website/);
-ok("ordinal: third project", ["what projects have you built", "tell me about the third one"], /JOH EVENTS/);
+ok("project list is numbered", "what projects have you built", /4\. JOH EVENTS website/);
+ok("ordinal: second project", ["what projects have you built", "tell me about the second one"], /VegInn/);
 ok("event volunteering is not mistaken for the website", "what did you do at indaba", /Event Operations Volunteer/);
 
 ok("elephant questions go to the Space for Giants role", "tell me about the elephant work", /Space for Giants/);
