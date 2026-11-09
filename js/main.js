@@ -156,23 +156,54 @@ onPage("projectGrid", () => {
   }).join("");
   // Arrow buttons scroll the row by one card
   const row = $("projectGrid");
-  const step = dir => row.scrollBy({ left: dir * (row.firstElementChild.offsetWidth + 24), behavior: "smooth" });
-  $("projPrev").addEventListener("click", () => step(-1));
+  const cards = [...row.children];
+  const step = dir => row.scrollBy({ left: dir * (cards[0].offsetWidth + 24), behavior: "smooth" });
+
+  // Endless loop, one direction only: a second copy of the cards follows the last one. When the copy has slid
+  // into the first card's place the row jumps back by exactly one copy-width, which looks identical, so the
+  // cards only ever move forward. The copy exists only when the cards do not all fit on screen.
+  let loopW = 0;
+  const instant = fn => { row.style.scrollBehavior = "auto"; fn(); row.style.scrollBehavior = ""; };
+  const buildLoop = () => {
+    row.querySelectorAll(".clone").forEach(c => c.remove());
+    loopW = 0;
+    const last = cards[cards.length - 1];
+    if (last.offsetLeft + last.offsetWidth - cards[0].offsetLeft <= row.clientWidth + 4) return;
+    row.append(...cards.map(c => {
+      const k = c.cloneNode(true);
+      k.classList.remove("reveal"); k.classList.add("clone");
+      k.setAttribute("aria-hidden", "true");
+      k.querySelectorAll("a").forEach(a => { a.tabIndex = -1; });   // keyboard users meet each project once
+      return k;
+    }));
+    loopW = row.querySelector(".clone").offsetLeft - cards[0].offsetLeft;
+  };
+  let jumpTimer;
+  row.addEventListener("scroll", () => {
+    clearTimeout(jumpTimer);
+    jumpTimer = setTimeout(() => { if (loopW && row.scrollLeft >= loopW - 2) instant(() => { row.scrollLeft -= loopW; }); }, 120);
+  });
+  buildLoop();
+  let resizeT;
+  window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { instant(() => { row.scrollLeft = 0; }); buildLoop(); sync(); }, 200); });
+
+  $("projPrev").addEventListener("click", () => {
+    if (loopW && row.scrollLeft < 4) { instant(() => { row.scrollLeft += loopW; }); requestAnimationFrame(() => step(-1)); }
+    else step(-1);
+  });
   $("projNext").addEventListener("click", () => step(1));
 
-  // Auto-advance: slide to the next card, rest a few seconds, repeat; wraps to the first card after the last.
+  // Auto-advance: slide to the next card, rest a few seconds, repeat, always in the same direction.
   // Stops while the visitor hovers, focuses or touches the row, while the section is off screen or the tab is
   // hidden, and never starts for people who asked their system for reduced motion.
   const HOLD_MS = 4000;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let timer = null, onScreen = false, engaged = false;
-  const canScroll = () => row.scrollWidth > row.clientWidth + 4;
-  const atEnd = () => row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
-  const advance = () => atEnd() ? row.scrollTo({ left: 0, behavior: "smooth" }) : step(1);
+  const advance = () => step(1);
   const stop = () => { clearInterval(timer); timer = null; };
   const sync = () => {
     stop();
-    if (!reduced && onScreen && !engaged && !document.hidden && canScroll()) timer = setInterval(advance, HOLD_MS);
+    if (!reduced && onScreen && !engaged && !document.hidden && loopW) timer = setInterval(advance, HOLD_MS);
   };
   new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.3 }).observe(row);
   for (const [on, off] of [["mouseenter", "mouseleave"], ["focusin", "focusout"], ["touchstart", "touchend"]]) {
