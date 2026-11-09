@@ -2,6 +2,6 @@
   "name": "my_portfolio",
   "private": true,
   "scripts": {
-    "test": "node --test test/chat.test.js"
+    "test": "node --test test/*.test.js"
   }
 }
