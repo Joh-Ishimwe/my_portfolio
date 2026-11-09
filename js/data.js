@@ -118,17 +118,50 @@ const EDUCATION = [
 ];
 
 /* Achievements carousel — newest first.
-   image: optional photo for the card, e.g. "assets/images/achievements/amalitech.jpg"
-   (landscape works best; leave "" for a plain placeholder) */
+   kind    "certification" | "programme" | "event" | "milestone" (drives the filter tabs)
+   image   photo on the card, e.g. "assets/images/achievements/photo.webp" ("" = plain placeholder)
+   focus   which part of the photo stays visible when it is cropped, e.g. "50% 30%" (x y)
+   alt     short description of the photo for screen readers
+   caption optional longer text shown under the photos when the card is opened (default: the title)
+   images  extra photos, shown with the main one when the card is opened
+   cert    certificate image, shown last when the card is opened
+   link    optional external page ("Learn more →") */
+const IMG = "assets/images/achievements/";
 const ACHIEVEMENTS = [
-  { date: "Oct 2026", title: "AWS Certified Cloud Practitioner", kind: "certification", text: "Certified in AWS cloud fundamentals: core services, security, pricing and architecture.", image: "", link: "" },
-  { date: "Jul 2026", title: "BSc Software Engineering, ALU", text: "Graduated with a Machine Learning specialisation.", image: "", link: "" },
-  { date: "Jun 2026", title: "Data Engineering Apprentice, AmaliTech", text: "Joined AmaliTech to build production-style data pipelines.", image: "", link: "" },
-  { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", kind: "certification", text: "Protected Area Technician certification from WILDLABS.", image: "", link: "" },
-  { date: "Nov 2025", title: "Defended my research project", text: "Defended TractorCare, a predictive maintenance app that listens to tractor engine sounds to flag problems.", image: "", link: "" },
-  { date: "Nov 2024", title: "Professional Scrum Master I", kind: "certification", text: "Scrum.org certification in agile delivery and Scrum.", image: "", link: "" },
-  { date: "Jun 2024", title: "SheCanCode, Igire Rwanda", kind: "programme", text: "Completed the SheCanCode programme for women in tech.", image: "", link: "" },
-  { date: "Mar 2023", title: "Aspire Leaders Programme", kind: "programme", text: "Completed the Aspire Leaders Programme with Aspire Institute.", image: "", link: "" }
+  { date: "Oct 2026", title: "AWS Certified Cloud Practitioner", kind: "certification", text: "Certified in AWS cloud fundamentals: core services, security, pricing and architecture.",
+    image: IMG + "cert-aws-cloud-practitioner.webp", focus: "20% 40%", alt: "AWS Certified Cloud Practitioner certificate for Josiane Ishimwe, issued October 4, 2026",
+    cert: IMG + "cert-aws-cloud-practitioner.webp", link: "" },
+  { date: "Jul 2026", title: "BSc Software Engineering, ALU", kind: "milestone", text: "Graduated with a Machine Learning specialisation.",
+    image: IMG + "photo-graduation.webp", focus: "50% 10%", alt: "Josiane in a graduation cap and ALU graduate stole, smiling with her arms crossed",
+    cert: IMG + "cert-alu-degree.webp", link: "" },
+  { date: "Apr 2026", title: "Protected Area Technician, WILDLABS", kind: "certification", text: "Protected Area Technician Training Course: Tools for Informed Decision Making.",
+    image: IMG + "cert-wildlabs.webp", focus: "50% 40%", alt: "Protected Area Technician Training Course certificate from Connected Conservation, April 2026",
+    cert: IMG + "cert-wildlabs.webp", link: "" },
+  { date: "Mar 2026", title: "Ranger data-collection training, Space for Giants", kind: "event", text: "Ranger training run by Space for Giants on how to collect data and report incidents.",
+    image: IMG + "photo-8505.webp", focus: "50% 40%", alt: "Josiane standing with five rangers on open grassland at a reserve in Kenya",
+    images: [IMG + "photo-8536.webp"], link: "" },
+  { date: "Nov 2025", title: "Defended my research project", kind: "milestone", text: "Defended TractorCare, a predictive maintenance app that listens to tractor engine sounds to flag problems.",
+    image: IMG + "photo-defence.webp", focus: "50% 40%", alt: "Josiane smiling and holding a black folder in front of an African Leadership University backdrop", link: "" },
+  { date: "Nov 2025", title: "The Silver Gala 2025", kind: "event", text: "Handled transport and logistics at The Silver Gala 2025.",
+    image: IMG + "photo-7169.webp", focus: "50% 30%", alt: "Josiane in a green suit in front of The Silver Gala backdrop", link: "" },
+  { date: "Aug 2025", title: "Deep Learning Indaba Rwanda 2025", kind: "event", text: "Attended Deep Learning Indaba 2025 in Kigali.",
+    image: IMG + "photo-6520.webp", focus: "50% 50%", alt: "Josiane standing in front of the Deep Learning Indaba Rwanda 2025 sign in Kigali", link: "" },
+  { date: "Jul 2025", title: "Africa Coffee & Tea", kind: "event", text: "Attended the Africa Coffee & Tea event in Kigali.",
+    image: IMG + "photo-0931.webp", focus: "50% 40%", alt: "Josiane in front of the Africa Coffee & Tea sponsor wall", link: "" },
+  { date: "Apr 2025", title: "AYuTe Africa Challenge, Rwanda Grand Finale", kind: "event", text: "Attended the AYuTe Africa Challenge Rwanda 2025 Grand Finale, hosted with Heifer International Rwanda.",
+    image: IMG + "photo-8813.webp", focus: "50% 55%", alt: "Josiane in a red vest at the AYuTe Africa Challenge Rwanda 2025 Grand Finale", link: "" },
+  { date: "Nov 2024", title: "Professional Scrum Master I", kind: "certification", text: "Scrum.org certification in agile delivery and Scrum.",
+    image: IMG + "badge-scrum-psm1.webp", focus: "10% 50%", alt: "Credly page for the Professional Scrum Master I (PSM I) badge issued to Josiane Ishimwe by Scrum.org", link: "https://www.credly.com/badges/7543de6c-7291-4b16-90f0-1641183125cd/public_url" },
+  { date: "Sep 2024", title: "Africa Food Systems Forum 2024", kind: "event", text: "Took part in the Africa Food Systems Forum 2024 in Kigali, on food systems transformation in a digital and climate era.",
+    image: IMG + "photo-enpr8417.webp", focus: "50% 50%", alt: "Group photo of the AFSF 2024 team in matching white and green polo shirts",
+    images: [IMG + "photo-1275.webp"], link: "" },
+  { date: "Sep 2024", title: "Certificate of Appreciation, AFSF 2024", kind: "event", text: "Received a certificate of appreciation at the Africa Food Systems Forum 2024.",
+    image: IMG + "photo-hkyw7647.webp", focus: "50% 55%", alt: "Josiane receiving a certificate on stage at the Africa Food Systems Forum 2024", link: "" },
+  { date: "Jun 2024", title: "SheCanCode, Igire Rwanda", kind: "programme", text: "Completed the SheCanCode programme for women in tech.",
+    image: IMG + "photo-e9593.webp", focus: "50% 25%", alt: "Josiane in a SheCanCode sash at a laptop",
+    images: [IMG + "photo-8002.webp"], link: "" },
+  { date: "Mar 2023", title: "Aspire Leaders Programme", kind: "programme", text: "Completed the Aspire Leaders Programme with Aspire Institute.",
+    image: IMG + "cert-aspire.webp", focus: "50% 35%", alt: "Aspire Institute Online Leadership Course certificate, March 2023", cert: IMG + "cert-aspire.webp", link: "" }
 ];
 
 /* Project cards. image: put files in assets/images/ — leave "" for a generated cover */
