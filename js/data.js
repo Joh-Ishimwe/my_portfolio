@@ -170,7 +170,7 @@ const certNames = kind => ACHIEVEMENTS.filter(a => a.kind === kind).map(a => a.t
 const CHAT = {
   botName: "JOH-bot 2.0",
   intro: "Chat with my AI assistant to learn more about me",
-  greeting: "Hello! Welcome to my portfolio chatbot. How can I assist you today? Feel free to ask about my projects or experience.",
+  greeting: "Hello! Welcome to my portfolio chatbot. Let's chat!",
   suggestions: ["What do you do?", "Do you know Airflow?", "Your projects?", "Where did you study?", "How can I contact you?"],
   topics: [
     { id: "greeting", ask: "Say hello", words: { hi: 2, hello: 2, hey: 2, muraho: 3, bonjour: 3, morning: 1 },
