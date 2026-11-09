@@ -26,7 +26,7 @@ const PROFILE = {
   interests: ["Data & AI", "Entrepreneurship", "Conservation & agriculture"],
   softSkills: ["Teamwork & collaboration", "Attention to detail & analytical problem-solving", "Effective communication and project coordination"],
   licence: "Valid Rwandan driving licence (Category B)",
-  photo: "assets/images/avatar.webp",   // swap for a real photo any time (square works best)
+  photo: "assets/images/headshot.webp",   // About page photo (square works best)
   avatar: "assets/images/avatar-idle.webp",  // still image: shown before and after the twin answers
   avatarVideo: "assets/avatar.mp4",          // muted video: plays only while the twin is answering
   cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: export your CV as PDF and save it here
