@@ -6,8 +6,8 @@ const PAGES = [
   { id: "home",    href: "index.html",   label: "Home" },
   { id: "projects", href: "index.html#projects", label: "Projects" },   // jumps to the Projects section on the home page
   { id: "about",   href: "about.html",   label: "About me" },
-  { id: "toolbox", href: "toolbox.html", label: "Toolbox" },
-  { id: "impact",  href: "impact.html",  label: "Impact" }
+  { id: "toolbox", href: "toolbox.html", label: "Toolbox" }
+  // { id: "impact",  href: "impact.html",  label: "Impact" }   // hidden for now: add this line back to show the Impact page
 ];
 (function renderLayout() {
   const current = document.body.dataset.page;

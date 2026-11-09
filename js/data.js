@@ -239,7 +239,7 @@ const CHAT = {
       phrases: { "phone number": 6, "home address": 6 },
       reply: () => `I keep my phone number, home address and references off the public site. The best way to reach me is email (${PROFILE.email}) or the contact form on the About me page, and references are available on request.` },
     { id: "personal", ask: "What do you do outside work?", words: { fun: 3, hobby: 3, hobbies: 3, free: 2, outside: 2, veginn: 3, business: 2, founder: 3, impact: 3, community: 2 },
-      reply: () => "Outside work, I co-founded VegInn, an agribusiness connecting farmers to city markets, and I volunteer at tech events and on data projects. See the Impact page!" }
+      reply: () => "Outside work, I co-founded VegInn, an agribusiness connecting farmers to city markets, and I volunteer at tech events and on data projects." }
   ],
   fallback: () => `I'm not sure about that one yet. Try asking about my skills, projects, experience or education, or email me at ${PROFILE.email}.`
 };
