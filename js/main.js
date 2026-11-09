@@ -11,8 +11,7 @@ onPage("heroName", () => {
   const [first, ...rest] = PROFILE.name.split(" ");
   $("heroName").innerHTML = `${esc(first)} <span>${esc(rest.join(" "))}</span>`;
   $("heroRole").textContent = "Hello, I'm";
-  $("heroTagline").innerHTML = PROFILE.heroIntro.map(p => `<p>${esc(p)}</p>`).join("");
-  $("heroTags").innerHTML = PROFILE.heroTags.map(t => `<li>${esc(t)}</li>`).join("");
+  $("heroTagline").innerHTML = PROFILE.heroIntro.map(p => `<p>${esc(p).replace(/\*(.+?)\*/g, '<span class="accent">$1</span>')}</p>`).join("");
 });
 
 /* ---------- Achievements carousel ----------

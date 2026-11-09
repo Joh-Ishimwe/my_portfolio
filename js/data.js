@@ -12,10 +12,9 @@ const PROFILE = {
   location: "Kigali, Rwanda",
   tagline: "I build reliable, data-driven systems that help organisations make informed decisions.",
   heroIntro: [   // the paragraphs under your name on the home page
-    "I work at the intersection of data, technology, and human decision-making.",
+    "I work at the intersection of *data*, technology, and human decision-making.",   // *word* shows in the accent colour
     "I turn complex data into reliable systems and meaningful insights that help people make informed decisions."
   ],
-  heroTags: ["Data Engineering", "Analytics", "Applied AI"],   // the pills under the paragraphs
   about: [
     "I'm Josiane Ishimwe, a Software Engineering graduate from African Leadership University, specialising in Machine Learning, and currently a Data Engineering Apprentice at AmaliTech.",
     "I work with data and technology to make information more reliable, useful, and actionable. My work involves building pipelines, validating datasets, implementing data-quality checks, and structuring information so that organisations can make decisions based on evidence rather than assumptions.",
