@@ -49,7 +49,11 @@ ok("misspelt project", "tractorcre", /Predictive maintenance/);
 
 /* ---- education, certifications, location, contact ---- */
 ok("education", "where did you study", /African Leadership University/);
-ok("gpa", "what is your gpa", /4\.30/);
+test("gpa is not shown anywhere", () => {
+  const text = ask("what is your gpa").text;
+  assert.match(text, /African Leadership University/);
+  assert.doesNotMatch(text, /4\.30|CGPA/);
+});
 ok("certifications", "do you have any certifications", /AWS Certified Cloud Practitioner/);
 ok("specific certification", "are you aws certified", /AWS/);
 ok("location", "where are you based", /Kigali/);

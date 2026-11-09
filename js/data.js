@@ -102,7 +102,7 @@ const VOLUNTEERING = [
 /* Education — short, newest first */
 const EDUCATION = [
   { role: "BSc (Hons) Software Engineering, Machine Learning", org: "African Leadership University", place: "Kigali, Rwanda", dates: "2023 – 2025", graduated: "July 2026",
-    line: "CGPA 4.30 / 5.00 · Data Engineering Foundations, Databases, Machine Learning, Systems Programming." },
+    line: "Data Engineering Foundations, Databases, Machine Learning, Systems Programming." },
   { role: "Mechanical Engineering studies (Plant Engineering)", org: "University of Rwanda, CST", place: "Kigali, Rwanda", dates: "2020 – 2023",
     line: "Engineering Mathematics, Thermodynamics, Fluid Mechanics, Machine Design (CAD), Heat Transfer." },
   { role: "High School Diploma (Mathematics, Physics & Geography)", org: "Ecole Notre Dame de la Providence de Karubanda", place: "Huye, Rwanda", dates: "2017 – 2019",
