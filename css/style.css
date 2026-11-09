@@ -209,12 +209,19 @@ main, .footer { padding: 0 clamp(1rem, 5vw, 4rem); }
 .tag { font-family: var(--font-mono); font-size: .72rem; padding: .25rem .6rem; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); }
 .project-links a { font-weight: 600; font-size: .9rem; margin-right: 1rem; }
 
-/* ---------- Skills ---------- */
-.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
-.skill-group { border-top: 2px solid var(--ink); padding-top: 1rem; }
-.skill-group h3 { font-family: var(--font-mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .7rem; }
-.skill-group .tags { margin: 0; }
-.skill-group .tag { font-size: .85rem; background: var(--surface); }
+/* ---------- Skills ----------
+   One row per category: label on the left, tools on the right. Same chip style everywhere. */
+.skills-hint { color: var(--muted); font-size: .9rem; margin: -.4rem 0 1.2rem; }
+.skills { border-top: 1px solid var(--line); }
+.skill-group { display: grid; grid-template-columns: 210px 1fr; gap: .6rem 1.5rem; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.skill-group h3 { margin: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--ink); }
+.skill-group h3 small { display: block; margin-top: .15rem; font-size: .8rem; font-weight: 400; color: var(--muted); }
+.skill-group .tags { margin: 0; gap: .55rem; }
+.skill-group .tag { font-family: var(--font-body); font-size: .95rem; padding: .38rem .85rem; background: var(--bg); border: 1px solid var(--line); color: var(--ink); }
+.skill-group .tag.has-proof { cursor: help; }   /* hover or focus shows where it was used */
+.skill-group .tag.has-proof:hover, .skill-group .tag.has-proof:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.cert-mark { color: var(--accent); font-weight: 700; margin-left: .2rem; }
+@media (max-width: 640px) { .skill-group { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Experience: compact list ---------- */
 .experience { list-style: none; padding: 0; border-top: 1px solid var(--line); }

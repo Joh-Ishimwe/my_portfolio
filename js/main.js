@@ -107,10 +107,27 @@ onPage("projectGrid", () => {
 
 /* ---------- Skills ---------- */
 onPage("skillGrid", () => {
+  // Evidence for each tool: the projects and jobs that mention it, plus any certificate named after it.
+  // "Spark/PySpark" is matched as spark and pyspark; whole words only, so "SQL" does not match "PostgreSQL".
+  const re = skill => new RegExp("\\b(" + skill.split(/[/()]/).map(t => t.trim()).filter(Boolean)
+    .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")(?!\\w)", "i");
+  const proof = skill => {
+    const r = re(skill);
+    return {
+      used: [...PROJECTS.filter(p => p.stack.some(s => r.test(s))).map(p => p.title),
+             ...EXPERIENCE.filter(x => r.test(x.line)).map(x => x.org)],
+      cert: ACHIEVEMENTS.find(a => a.kind === "certification" && r.test(a.title))
+    };
+  };
+  const chip = skill => {
+    const { used, cert } = proof(skill);
+    const tip = [cert && cert.title, used.length && "Used in: " + used.join(", ")].filter(Boolean).join(" · ");
+    return `<span class="tag${tip ? " has-proof" : ""}"${tip ? ` title="${esc(tip)}" tabindex="0"` : ""}>${esc(skill)}${cert ? ' <small class="cert-mark">✓ Certified</small>' : ""}</span>`;
+  };
   $("skillGrid").innerHTML = Object.entries(SKILLS).map(([group, items]) => `
     <div class="skill-group reveal">
-      <h3>${esc(group)}</h3>
-      <div class="tags">${items.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div>
+      <h3>${esc(group)}${SKILL_NOTES[group] ? `<small>${esc(SKILL_NOTES[group])}</small>` : ""}</h3>
+      <div class="tags">${items.map(chip).join("")}</div>
     </div>`).join("");
 });
 
