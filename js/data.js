@@ -39,13 +39,21 @@ const PROFILE = {
 };
 
 const SKILLS = {
-  "Programming": ["Python", "SQL", "JavaScript", "Node.js", "React", "Dart", "HTML", "CSS"],
-  "Data Engineering": ["ETL/ELT", "Data modelling", "Data validation", "Airflow", "Spark/PySpark", "Kafka"],
-  "Databases & Storage": ["PostgreSQL", "MySQL", "MongoDB", "MinIO"],
-  "ML & Analytics": ["Pandas", "NumPy", "scikit-learn", "TensorFlow/TFLite", "Tableau", "Power BI", "Excel"],
-  "Software & Tools": ["FastAPI", "REST APIs", "Docker", "Git", "GitHub Actions", "Metabase"],
-  "GIS": ["ArcGIS Online", "Survey123", "EarthRanger", "Google Earth Engine"],
-  "Cloud": ["AWS", "Google Cloud"]
+  "Data Engineering": ["ETL/ELT", "Data modelling", "Data validation", "Airflow", "Spark/PySpark", "Kafka", "Microsoft Fabric"],
+  "Programming": ["Python", "SQL", "JavaScript", "Node.js", "HTML", "CSS"],
+  "Databases & Storage": ["PostgreSQL", "MySQL", "MongoDB"],
+  "Cloud & DevOps": ["AWS", "Google Cloud", "GitHub Actions"],
+  "Analytics & BI": ["Tableau", "Power BI", "Excel"],
+  "GIS": ["ArcGIS Online", "Survey123", "EarthRanger"]
+};
+/* One short line under each Skills category on the Toolbox page */
+const SKILL_NOTES = {
+  "Data Engineering": "Building and checking data pipelines",
+  "Programming": "Languages for data work and the web",
+  "Databases & Storage": "Where the data lives",
+  "Cloud & DevOps": "Running and shipping it",
+  "Analytics & BI": "Dashboards and reporting",
+  "GIS": "Mapping and field data"
 };
 
 /* Where I've worked — keep it short: newest first, one line each */
@@ -169,6 +177,7 @@ const PROJECTS = [
 const certNames = kind => ACHIEVEMENTS.filter(a => a.kind === kind).map(a => a.title);
 const CHAT = {
   botName: "JOH-bot 2.0",
+  notOnList: ["React", "Dart", "Google Earth Engine"],   // skills taken off the list: the bot says they are not listed instead of guessing
   intro: "Chat with my AI assistant to learn more about me",
   greeting: "Hello! Welcome to my portfolio chatbot. Let's chat!",
   suggestions: ["What do you do?", "Do you know Airflow?", "Your projects?", "Where did you study?", "How can I contact you?"],
@@ -187,7 +196,7 @@ const CHAT = {
       more: () => "The full list: " + Object.entries(SKILLS).map(([g, items]) => `${g}: ${items.join(", ")}`).join(". ") + "." },
     { id: "ml", ask: "Do you do machine learning?", words: { ml: 3, scikit: 3, tensorflow: 3, pandas: 2, numpy: 2, analytics: 2, model: 1 },
       phrases: { "machine learning": 5, "data science": 4, "deep learning": 4, "artificial intelligence": 3 },
-      reply: () => `Yes. I specialised in Machine Learning at ${EDUCATION[0].org}. My ML and analytics tools: ${SKILLS["ML & Analytics"].join(", ")}. I used it in ${PROJECTS.filter(p => p.stack.some(s => /tensorflow/i.test(s))).map(p => p.title).join(" and ")}.` },
+      reply: () => `Yes. I specialised in Machine Learning at ${EDUCATION[0].org}, and used TensorFlow in ${PROJECTS.filter(p => p.stack.some(s => /tensorflow/i.test(s))).map(p => p.title).join(" and ")}. For analytics and dashboards I use ${SKILLS["Analytics & BI"].join(", ")}.` },
     { id: "projects", ask: "What projects have you built?", generic: true,
       words: { project: 3, built: 2, build: 2, portfolio: 2, capstone: 3, made: 1 },
       reply: () => `My projects: ${PROJECTS.map((p, i) => `${i + 1}. ${p.title}`).join(" · ")}. Ask about any of them, for example "tell me about the first one".`,

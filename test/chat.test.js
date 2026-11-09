@@ -129,8 +129,9 @@ ok("volunteering", "tell me about your volunteering", /AFS Forum/, /SOMA/, /Inda
 ok("driving licence", "do you have a driving licence", /Category B/);
 ok("high school", "what high school did you attend", /Karubanda/);
 ok("education more includes high school", ["where did you study", "tell me more"], /Karubanda/);
-ok("skill from the CV: React", "do you know react", /React/);
-ok("skill from the CV: Earth Engine", "do you know google earth engine", /Earth Engine/);
+ok("dropped skill is not claimed: React", "do you know react", /React isn't on my skills list/);
+ok("dropped skill is not claimed: Earth Engine", "do you know google earth engine", /isn't on my skills list/);
+ok("new skill: Microsoft Fabric", "do you know fabric", /Fabric/);
 ok("skill from the CV: Node", "do you use node.js", /Node/);
 
 /* ---- privacy: the public bot never reveals phone, address or references ---- */

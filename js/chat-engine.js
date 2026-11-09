@@ -206,6 +206,12 @@
 
     /* ---------- the public method ---------- */
     function reply(question) {
+      // A skill I deliberately don't list (CHAT.notOnList): say so honestly, before typo-correction can turn "react" into "reach"
+      const unlisted = (CHAT.notOnList || []).find(n =>
+        new RegExp("\\b" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(question));
+      if (unlisted)
+        return done(`${unlisted} isn't on my skills list yet. My core stack is ${SKILLS["Programming"].slice(0, 2).join(" and ")} with ${SKILLS["Databases & Storage"][0]}. Ask me about any of those, or email ${PROFILE.email}.`,
+          { topic: "unknown-skill" });
       const q = analyse(question);
       const scored = scoreTopics(q);
       const best = scored[0];
