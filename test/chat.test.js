@@ -155,7 +155,7 @@ test("a tool name matching more words wins: google cloud is not Google Earth Eng
 });
 
 /* ---- project links ---- */
-ok("project link follow-up", ["tell me about the data platform", "any link to the code?"], /github\.com\/Joh-Ishimwe\/DEM11_mini-data-platform/);
+ok("project link follow-up", ["tell me about the data platform", "any link to the code?"], /github\.com\/Joh-Ishimwe\/mini-data-platform/);
 ok("project link: can I see the code", ["tell me about the mini data platform", "can I see the code"], /github\.com/);
 test("project without a public repo says so", () => {
   const noRepo = { ...data, PROJECTS: data.PROJECTS.map(p => ({ ...p, repo: "", demo: "" })) };

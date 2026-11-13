@@ -2,7 +2,6 @@
   ============================================================
   ALL YOUR CONTENT LIVES HERE.
   Edit this file only — the page (index.html) reads from it.
-  Anything marked TODO is a placeholder to replace from your CV.
   ============================================================
 */
 const PROFILE = {
@@ -29,7 +28,7 @@ const PROFILE = {
   photo: "assets/images/headshot.webp",   // About page photo (square works best)
   avatar: "assets/images/avatar-idle.webp",  // still image: shown before and after the twin answers
   avatarVideo: "assets/avatar.mp4",          // muted video: plays only while the twin is answering
-  cv: "assets/Josiane_Ishimwe_CV.pdf",   // TODO: export your CV as PDF and save it here
+  cv: "assets/Josiane_Ishimwe_CV.pdf",
   email: "jishimwe24@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/josiane-ishimwe",
@@ -174,9 +173,9 @@ const PROJECTS = [
     summary: "Predictive maintenance system that classifies tractor engine sounds to spot problems early. MFCC audio features + TensorFlow model, FastAPI backend, MongoDB, and a Flutter app with offline sync. Tested on 50 recordings from Kayonza.",
     stack: ["Python", "TensorFlow", "librosa", "FastAPI", "MongoDB", "Flutter"],
     label: "ALU Capstone project",
-    image: "",
-    repo: "https://github.com/Joh-Ishimwe/tractorcare-capstone",   // NOTE: this repo is private on GitHub, so the link shows a 404 until it is made public
-    demo: ""
+    image: "assets/images/tractorcare.webp",
+    repo: "https://github.com/Joh-Ishimwe/tractorcare-capstone",
+    demo: "https://tractorcare.onrender.com"
   },
   {
     title: "VegInn",
@@ -194,8 +193,8 @@ const PROJECTS = [
     summary: "A Dockerised, end-to-end data platform with CI/CD: synthetic sales data lands in MinIO, Airflow cleans and validates it, Postgres stores it and Metabase turns it into a dashboard. Bad rows are quarantined and loads are idempotent.",
     stack: ["Python", "Airflow", "PostgreSQL", "MinIO", "Metabase", "Docker", "GitHub Actions"],
     label: "AmaliTech Capstone project",
-    image: "",
-    repo: "https://github.com/Joh-Ishimwe/DEM11_mini-data-platform",
+    image: "assets/images/mini-data-platform.webp",
+    repo: "https://github.com/Joh-Ishimwe/mini-data-platform",
     demo: ""
   },
   {
@@ -204,7 +203,7 @@ const PROJECTS = [
     summary: "A static website for an events business, in plain HTML, CSS and JavaScript with no server code. Pages fill themselves from JSON content that the owner edits in an admin panel (Sveltia CMS), with a Formspree contact form and SEO tags.",
     stack: ["HTML", "CSS", "JavaScript", "Sveltia CMS", "Formspree"],
     label: "Personal project",
-    image: "",
+    image: "assets/images/joh-events.webp",
     repo: "https://github.com/Joh-Ishimwe/JOH_EVENTS",
     demo: ""
   }
@@ -225,7 +224,7 @@ const certNames = kind => ACHIEVEMENTS.filter(a => a.kind === kind).map(a => a.t
 const CHAT = {
   botName: "JOH-bot 2.0",
   notOnList: ["React", "Dart", "Google Earth Engine"],   // skills taken off the list: the bot says they are not listed instead of guessing
-  intro: "Chat with my AI assistant to learn more about me",
+  intro: "Chat with my portfolio assistant to learn more about me",
   greeting: "Hello! Welcome to my portfolio chatbot. Let's chat!",
   suggestions: ["What do you do?", "Do you know Airflow?", "Your projects?", "Where did you study?", "How can I contact you?"],
   topics: [
@@ -342,7 +341,7 @@ const IMPACT = {
     {
       title: "Supporting tech communities",
       text: "I volunteer behind the scenes at tech events in Kigali, helping with setup, logistics and delegate coordination.",
-      highlights: ["Deep Learning Indaba (Aug 2025)", "Silver Gara (Nov 2025)"],
+      highlights: ["Deep Learning Indaba (Aug 2025)", "Silver Gala (Nov 2025)"],
       images: []
     }
   ]
