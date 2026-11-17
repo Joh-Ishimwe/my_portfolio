@@ -1,8 +1,7 @@
 # Josiane Ishimwe: portfolio
 
 Personal portfolio of a data engineer in Kigali, Rwanda. Plain HTML, CSS and
-JavaScript: no framework, no build step, no dependencies. Design inspired by
-karenhappuch.com.
+JavaScript: no framework, no build step, no dependencies.
 
 **Live:** https://joh-ishimwe.github.io/my_portfolio/
 
@@ -75,6 +74,3 @@ Open `js/data.js`. Photos go in `assets/images/…` and are referenced by path, 
 ```bash
 python -m http.server 8000   # then open http://localhost:8000
 ```
-
-## Deploy (GitHub Pages)
-Push to `master`, then **Settings → Pages → Deploy from a branch → master / (root)**.
